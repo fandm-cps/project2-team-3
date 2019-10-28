@@ -1,4 +1,6 @@
 using namespace std;
+#include <cstddef>
+
 
 template <class item_t>
 ArrayList<item_t>::ArrayList(){
@@ -85,7 +87,6 @@ void ArrayList<item_t>:: popFront()
 	}
 	else if (this->size == 1)
 	{
-	this->items[0] = NULL;
 	this->size -= 1;
 	}
 	//if not empty
@@ -94,7 +95,7 @@ void ArrayList<item_t>:: popFront()
 		{
 			(this->items)[i] = (this->items)[i+1];
 		}
-		(this->items)[this->size - 1] = NULL;
+		//(this->items)[this->size - 1] = NULL;
 		this->size -= 1;
 	}
 }
@@ -117,6 +118,18 @@ void ArrayList<item_t>::setItem(int index, const item_t& item){
 template <class item_t>
 void ArrayList<item_t>::insert(int index, const item_t& item)
 {
+    if(size == capacity){
+        item_t* newItems = new item_t[capacity*2];
+        
+        for(int i = 0; i < capacity-1; i++){
+            (newItems)[i] = (items)[i];
+        } 
+
+        delete items;
+        items = newItems;
+        capacity *= 2;
+    }
+
 	if (index == 0)
 	{
 		this->pushFront(item);
