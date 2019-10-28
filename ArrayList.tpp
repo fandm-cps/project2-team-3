@@ -1,3 +1,5 @@
+using namespace std;
+
 template <class item_t>
 ArrayList<item_t>::ArrayList(){
     items = new item_t[10];
@@ -35,13 +37,13 @@ void ArrayList<item_t>::pushBack(const item_t& item){
     size++;
 }
 
-/*template <class item_t>
+template <class item_t>
 void ArrayList<item_t>::popBack()
 {
-	(*this->items)[this->size-1] = null;
-	this->size -= 1;
-	this->capacity -= 1;
-}*/
+    if(size != 0){
+	    size -= 1;
+    }
+}
 
 template <class item_t>
 const item_t& ArrayList<item_t>:: getBack() const

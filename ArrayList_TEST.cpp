@@ -29,10 +29,22 @@ TEST_CASE("Testing ArrayList template"){
         REQUIRE(a.getCapacity() == 2);
         REQUIRE(a.getBack() == 7);
 
+        a.pushBack(84);
+        REQUIRE(a.getCapacity() == 4);
+        REQUIRE(a.getBack() == 84);
+
     }
 
     SECTION("popBack"){
-        
+        ArrayList<int> a(10);
+        a.pushBack(536);
+        a.pushBack(7);
+        a.pushBack(84);
+        REQUIRE(a.getBack() == 84);
+
+        a.popBack();
+        REQUIRE(a.getBack() == 7);
+        REQUIRE(a.getCapacity() == 10);
     }
 
     SECTION("getBack"){
