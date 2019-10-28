@@ -6,7 +6,42 @@
 
 using namespace std;
 
-TEST_CASE("Testing ArrayList template"){
+TEST_CASE("TESTING ArrayList Template")
+{
+
+  SECTION("TESTING PUSHFRONT")
+{
+  ArrayList<int> myArr2(1);
+  myArr2.pushFront(5);
+  REQUIRE(myArr2.getFront() == 5);
+
+  myArr2.pushFront(25);
+  REQUIRE(myArr2.getFront() == 25);
+  
+  }
+
+   SECTION("TESTING INSERT")
+{
+  ArrayList<int> myArr3(10);
+  myArr3.pushFront(5);
+  myArr3.pushFront(25);
+  myArr3.insert(0, 45);
+  REQUIRE(myArr3.getFront() == 45);
+  myArr3.insert(0, 33);
+  REQUIRE(myArr3.getFront() == 33);
+  myArr3.pushFront(10);
+  myArr3.pushFront(26);
+  myArr3.pushFront(66);
+  myArr3.insert(55, 77);
+  REQUIRE(myArr3.getBack() == 77);
+  REQUIRE_FALSE(myArr3.getBack() != 77);
+  myArr3.pushFront(NULL);
+  myArr3.insert(0, 32);
+  REQUIRE(myArr3.getFront() == 32);
+  myArr3.insert(5, 49);
+  REQUIRE(myArr3.getItem(5) == 49);
+  
+  }
 
     SECTION("Default Constructor"){
         ArrayList<int> a;
