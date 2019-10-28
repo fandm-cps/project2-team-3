@@ -1,6 +1,3 @@
-using namespace std;
-#include <cstddef>
-
 template <class item_t>
 ArrayList<item_t>::ArrayList(){
     items = new item_t[10];
