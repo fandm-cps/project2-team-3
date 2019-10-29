@@ -1,6 +1,3 @@
-using namespace std;
-#include <cstddef>
-
 template <class item_t>
 ArrayList<item_t>::ArrayList(){
     items = new item_t[10];
@@ -39,17 +36,15 @@ void ArrayList<item_t>::pushBack(const item_t& item){
 }
 
 template <class item_t>
-void ArrayList<item_t>::popBack()
-{
+void ArrayList<item_t>::popBack(){
     if(size != 0){
 	    size -= 1;
     }
 }
 
 template <class item_t>
-const item_t& ArrayList<item_t>:: getBack() const
-{
-	return (items)[this->size - 1];
+const item_t& ArrayList<item_t>:: getBack() const{
+	return (items)[size-1];
 }
 
 template <class item_t>
@@ -77,26 +72,15 @@ void ArrayList<item_t>::pushFront(const item_t& item){
 }
 
 template <class item_t>
-void ArrayList<item_t>:: popFront()
-{
-	//if not null
-	if (this->isEmpty())
-	{
-	
-	}
-	else if (this->size == 1)
-	{
-	this->size -= 1;
-	}
-	//if not empty
-	else{
-		for (int i = 0; i < size; i++)
-		{
-			(this->items)[i] = (this->items)[i+1];
-		}
-		//(this->items)[this->size - 1] = NULL;
-		this->size -= 1;
-	}
+void ArrayList<item_t>:: popFront(){
+	if(size != 0){
+	    if(size != 1){
+		    for (int i = 0; i < size; i++){
+			    (items)[i] = (items)[i+1];
+		    }
+	    }
+        size -= 1;
+    }
 }
 
 template <class item_t>
@@ -115,8 +99,7 @@ void ArrayList<item_t>::setItem(int index, const item_t& item){
 }
 
 template <class item_t>
-void ArrayList<item_t>::insert(int index, const item_t& item)
-{
+void ArrayList<item_t>::insert(int index, const item_t& item){
     if(size == capacity){
         item_t* newItems = new item_t[capacity*2];
         
@@ -128,33 +111,19 @@ void ArrayList<item_t>::insert(int index, const item_t& item)
         items = newItems;
         capacity *= 2;
     }
-	if (index == 0)
-	{
-		this->pushFront(item);
+
+	if (index == 0){
+		pushFront(item);
 	}
-	else if (index > size)
-	{
-		this->pushBack(item);
-	}
-	else if ((this->items)[index] == NULL)
-	{
-		(this->items)[index] = item;
+	else if (index >= size){
+		pushBack(item);
 	}
 	else{
-		item_t tmp1 = (this->items)[index];
-		item_t tmp2 = NULL;
-		//setting the index equal to item
-		(this->items)[index] = item;
-		//pushing everything back
-		for (int i = 0; i <size; i++)
-		{
-			tmp2 = (this->items)[index + 1];
-			(this->items)[index + 1] = tmp1;
-			tmp1 = tmp2;
-			index++;
-		}
-		this->size = this->size + 1;
-		this->pushBack(tmp1);
+        for(int i = size-1; i >= index; i--){
+            (items)[i+1] = (items)[i];
+        }
+        (items)[index] = item;
+        size++;
 	}
 }
 
