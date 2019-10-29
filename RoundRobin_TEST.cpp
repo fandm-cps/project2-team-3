@@ -5,25 +5,13 @@
 
 using namespace std;
 
-TEST_CASE("Testing Scheduler"){
+TEST_CASE("Testing RoundRobin Scheduler"){
 
-    SECTION("addProcess"){
-
-    }
-
-    SECTION("popNext"){
+    SECTION("CPU Processes"){
         
     }
 
-    SECTION("RoundRobin Default Constructor"){
-        
-    }
-
-    SECTION("RR addProcess"){
-        
-    }
-
-    SECTION("RR popNext"){
+    SECTION("I/O Processes"){
         
     }
 }
