@@ -4,17 +4,6 @@
 
 using namespace std;
 
-//adds the given process to the processes to be scheduled
-void Scheduler::addProcess(Process* proc){
-
-}
-
-//removes and returns the next process in the schedule.
-//(Returns 0 if there is no available process)
-Process* Scheduler::popNext(int curCycle){
-
-}
-
 //initializes procQueue as an empty ArrayList.
 RoundRobin::RoundRobin(){
     procQueue = new ArrayList<Process*>;
@@ -27,14 +16,23 @@ RoundRobin::~RoundRobin(){
 
 //adds the given process to the back of procQueue.
 void RoundRobin::addProcess(Process* proc){
-    procQueue.pushback(proc);
+    procQueue.pushBack(proc);
 }
 
 //returns the first un-blocked process in the queue
 //(moving any blocked processes to the back of the 
 //queue) or 0 if all processes are blocked.
 Process RoundRobin::popNext(int curCycle){
+    for(int i = 0; i < procQueue.size; i++){
+        if(procQueue[i].isBlocked()){
+            procQueue.pushBack(procQueue.popFront());
+        }
+        else{
+            return procQueue[i];
+        }
+    }
 
+    return 0;
 }
 
 /*
