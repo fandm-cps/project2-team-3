@@ -44,6 +44,8 @@ class CPUBoundProcess : public Process
 {
   public:
    CPUBoundProcess(int id);
+
+   ~CPUBoundProcess(){ }
    
    //Returns false...the process is never blocked
    virtual bool isBlocked(int curCycleNum) const;
