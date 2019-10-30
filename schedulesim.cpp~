@@ -1,0 +1,14 @@
+
+
+int main()
+{
+  RoundRobin myRob = RoundRobin();
+  //Simulate newSim;
+  double* simResults = simulate(myRob, 100, 100, 300);
+
+
+
+  //make sure we deallocate the results arrayt when done
+  
+  
+}

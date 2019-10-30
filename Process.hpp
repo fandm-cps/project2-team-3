@@ -17,7 +17,7 @@ class Process
 
    //An empty virtual destructor for the sake of inheritance
    virtual ~Process() { }
-   
+
    //Returns the process' ID number
    virtual int getID() const;
    //Returns the total CPU time the process has used
@@ -42,9 +42,14 @@ class Process
 //(a process that uses all CPU time given to it)
 class CPUBoundProcess : public Process
 {
+protected:
+  //int timesCalled;
+  
   public:
    CPUBoundProcess(int id);
-   
+
+
+  ~CPUBoundProcess(){}
    //Returns false...the process is never blocked
    virtual bool isBlocked(int curCycleNum) const;
 
