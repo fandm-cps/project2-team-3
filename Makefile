@@ -3,10 +3,13 @@ CFLAGS = -Wall
 COVERAGE = --coverage
 C11 = -std=c++11
 
-all: ArrayList_TEST RoundRobin_TEST
+all: ArrayList_TEST LinkedList_TEST RoundRobin_TEST
 
 ArrayList_TEST: ArrayList_TEST.cpp ArrayList.hpp
 	$(CC) -o ArrayList ArrayList_TEST.cpp
+
+LinkedList_TEST: LinkedList_TEST.cpp LinkedList.hpp
+	$(CC) -o LinkedList LinkedList_TEST.cpp
 
 Scheduler.o: Scheduler.hpp Scheduler.cpp
 	$(CC) $(COVERAGE) -c Scheduler.cpp
