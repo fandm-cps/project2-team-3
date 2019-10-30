@@ -1,6 +1,7 @@
 CC = g++
 CFLAGS = -Wall
 COVERAGE = --coverage
+C11 = -std=c++11
 
 all: ArrayList_TEST RoundRobin_TEST
 
