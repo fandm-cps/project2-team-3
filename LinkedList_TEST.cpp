@@ -91,10 +91,12 @@ TEST_CASE("Testing LinkedList Template"){
         REQUIRE(a.getItem(3) == 20);
         REQUIRE(a.getSize() == 9);
 
-        //TEST
         a.remove(0);
+        REQUIRE(a.getItem(0) == 1);
         a.remove(7);
+        REQUIRE(a.getItem(6) == 6);
         a.remove(4);
+        REQUIRE(a.getItem(4) == 5);
 
     }
 
