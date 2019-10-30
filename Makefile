@@ -23,4 +23,7 @@ coverage: ArrayList_TEST.cpp ArrayList.hpp
 coverage1: RoundRobin_TEST.cpp Scheduler.hpp Scheduler.o
 	$(CC) $(CFLAGE) $(COVERAGE) RoundRobin_TEST.cpp Scheduler.o Process.cpp 
 
+coverage2: LinkedList_TEST.cpp LinkedList.hpp
+	$(CC) $(CFLAGE) $(COVERAGE) LinkedList_TEST.cpp LinkedList.hpp
+
 clean: rm ArrayList; rm RoundRobin
