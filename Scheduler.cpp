@@ -24,12 +24,16 @@ void RoundRobin::addProcess(Process* proc){
 //queue) or 0 if all processes are blocked.
 Process* RoundRobin::popNext(int curCycle){
 
+    //cout<<"a"<<endl;
     for(int i = 0; i < procQueue->getSize(); i++){
+        //cout<<i<<endl;
         if(procQueue->getItem(i)->isBlocked(curCycle)){
+            //cout<<"b"<<endl;
             procQueue->pushBack(procQueue->getItem(i));
             procQueue->popFront();
         }
         else{
+            //cout<<"c"<<endl;
             return procQueue->getItem(i);
         }
     }
@@ -37,14 +41,12 @@ Process* RoundRobin::popNext(int curCycle){
     return 0;
 }
 
-/*
-Implement this class in Scheduler.cpp. You should implement 
-RoundRobin_TEST.cpp to test your class to be sure it does 
-what you think it does. You'll notice that Process objects 
-have an ID. It has no functional purpose, but you can use 
-it in testing to see if processes come out of the scheduler 
-in the order you expect. Note that, though IOBoundProcess 
-objects behave randomly, you can obtain a blocked process 
-to test with by repeatedly called useCPU until it becomes 
-blocked.
-*/
+FastRoundRobin::FastRoundRobin()
+{
+  //constructor, which should delete the list that RoundRobin created
+  //(remember that the superclass' constructor is always invoked first)
+  //procQueue->~RoundRobin();
+  delete procQueue;
+  //point procQueue to an empty LinkedList
+  procQueue = new LinkedList<Process*>;
+}

@@ -14,6 +14,10 @@ TEST_CASE("Testing RoundRobin Scheduler"){
 
         a.addProcess(&p1);
         REQUIRE(a.popNext(0)->getID() == 1);
+
+        FastRoundRobin b;
+	    b.addProcess(&p1);
+	    REQUIRE(b.popNext(0)->getID() == 1);
     }
 
     SECTION("I/O Processes"){
@@ -25,5 +29,10 @@ TEST_CASE("Testing RoundRobin Scheduler"){
         a.addProcess(&p1);
         REQUIRE(p1.isBlocked(0) == true);
         REQUIRE(a.popNext(20) == 0);
+
+        FastRoundRobin b;
+	    b.addProcess(&p1);
+	    REQUIRE(p1.isBlocked(0) == true);
+        REQUIRE(b.popNext(20) == 0);
     }
 }

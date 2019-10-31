@@ -4,6 +4,7 @@
 #include "Process.hpp"
 #include "List.hpp"
 #include "ArrayList.hpp"
+#include "LinkedList.hpp"
 
 class Scheduler
 {
@@ -37,6 +38,12 @@ class RoundRobin : public Scheduler
         //queue) or 0 if all processes are blocked.
         virtual Process* popNext(int curCycle);
 
+};
+
+class FastRoundRobin : public RoundRobin
+{
+public: 
+  FastRoundRobin();
 };
 
 #endif
