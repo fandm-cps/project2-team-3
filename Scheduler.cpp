@@ -23,13 +23,22 @@ void RoundRobin::addProcess(Process* proc){
 //(moving any blocked processes to the back of the 
 //queue) or 0 if all processes are blocked.
 Process* RoundRobin::popNext(int curCycle){
-
+  cout << "hey hererere" << endl;
     for(int i = 0; i < procQueue->getSize(); i++){
-        if(procQueue->getItem(i)->isBlocked(curCycle)){
+      cout << "anything" << endl;
+      cout << "this is the process files id" << procQueue->getFront()->getID() << endl;
+      cout << "this better work" << procQueue->getSize() << endl;
+      cout << "in for loop" << endl;
+      cout << "anything" << endl;
+      cout << "this better work" << procQueue << endl;
+      
+      if(procQueue->getFront()->isBlocked(curCycle)){
+	  cout << "in if statement" << endl;
             procQueue->pushBack(procQueue->getItem(i));
             procQueue->popFront();
         }
         else{
+	  cout << "in else statement" << endl; 
             return procQueue->getItem(i);
         }
     }

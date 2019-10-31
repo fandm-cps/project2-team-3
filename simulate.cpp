@@ -15,6 +15,7 @@ double* simulate(Scheduler* sched, int numCPUBound, int numIOBound, int numCycle
       cpuBound->pushBack(newCPU);
       //sched->addProcess(cpuBound->getItem(i));
       sched->addProcess(cpuBound->getItem(i));
+      delete newCPU;
     }
   //destructor
   //newCPU->~CPUBoundProcess();
@@ -26,6 +27,7 @@ double* simulate(Scheduler* sched, int numCPUBound, int numIOBound, int numCycle
       ioBound->pushBack(newIO);
       //sched->addProcess(ioBound->getItem(i));
       sched->addProcess(ioBound->getItem(i));
+      delete newIO;
     }
   //destructor
   //newIO->~IOBoundProcess();
@@ -39,10 +41,21 @@ double* simulate(Scheduler* sched, int numCPUBound, int numIOBound, int numCycle
   auto start = std::chrono::system_clock::now();
   while (simCycles < numCycles)
     {
-      //tally to keep track of numtimes scheduler has been accessed
-      accSched += 1;
+      cout << "simCycle#: " << simCycles << endl;
+      cout << "numCycles#: " << numCycles << endl;
+      cout << "in while" << endl;
+      //Process* xyz;
+      
+      
       //Get the next process from the schedule
-      next = sched->popNext(accSched);
+      next = sched->popNext(simCycles);
+      bool myB = false;
+      if (next == 0)
+	{
+	  myB = true;
+	}
+      cout << "is next = null??" << myB << endl;
+      cout << "heeeere" << endl;
       //If the scheduler returns a null pointer
       if (next == 0)
 	{
@@ -52,7 +65,7 @@ double* simulate(Scheduler* sched, int numCPUBound, int numIOBound, int numCycle
       else{
 	//Call the process' useCPU method with the current cycle number
 	//and slice size of 10
-	cyclesConsumed = next->useCPU(numCycles, 10);
+	cyclesConsumed = next->useCPU(simCycles, 10);
 	//The useCPU method returns the number of cycles used by the process
 	//(which may not bethe entire slice).
 	//Add that to the number of simulated cycles so far
@@ -60,6 +73,7 @@ double* simulate(Scheduler* sched, int numCPUBound, int numIOBound, int numCycle
 	//Add the process back into the scheduler
 	sched->addProcess(next);
       }
+      
       
     }
   //end the timer
