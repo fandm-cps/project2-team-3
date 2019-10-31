@@ -16,7 +16,7 @@ RoundRobin_TEST: RoundRobin_TEST.cpp Scheduler.hpp Scheduler.o
 simulate.o: simulate.cpp simulate.hpp ArrayList.hpp Scheduler.hpp Scheduler.cpp Process.hpp Process.cpp
 	$(CC) $(COVERAGE) -c simulate.cpp Scheduler.cpp Scheduler.hpp Process.cpp Scheduler.o
 
-schedulesim: schedulesim.cpp simulate.o
+schedulesim: schedulesim.cpp simulate.o 
 	$(CC) $(CFLAGS) $(COVERAGE) -o schedulesim schedulesim.cpp 
 
 coverage: ArrayList_TEST.cpp ArrayList.hpp

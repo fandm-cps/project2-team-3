@@ -16,6 +16,8 @@ double* simulate(Scheduler* sched, int numCPUBound, int numIOBound, int numCycle
       //sched->addProcess(cpuBound->getItem(i));
       sched->addProcess(cpuBound->getItem(i));
     }
+  //destructor
+  //newCPU->~CPUBoundProcess();
 
   ArrayList<IOBoundProcess*>* ioBound = new ArrayList<IOBoundProcess*>;
   for (int i = 0; i < numIOBound; i++)
@@ -25,10 +27,13 @@ double* simulate(Scheduler* sched, int numCPUBound, int numIOBound, int numCycle
       //sched->addProcess(ioBound->getItem(i));
       sched->addProcess(ioBound->getItem(i));
     }
+  //destructor
+  //newIO->~IOBoundProcess();
 
   Process* next;
   int simCycles = 0;
   double accSched = 0;
+  int cyclesConsumed;
 
   //start the timer
   auto start = std::chrono::system_clock::now();
@@ -62,7 +67,8 @@ double* simulate(Scheduler* sched, int numCPUBound, int numIOBound, int numCycle
   //get the duration
   auto dur = start - end;
   //get the nanosecond
-  auto durNS = chrono::duration_cast<chrono::nanoseconds>(dur);
+  auto  durNS = chrono::duration_cast<chrono::nanoseconds>(dur);
+  //double doubleDurNS = 
   //get the number of ticks
   int elapsed = durNS.count();
   //When the simulation is over, allocate and fill a 5 element array
@@ -73,7 +79,9 @@ double* simulate(Scheduler* sched, int numCPUBound, int numIOBound, int numCycle
   //of times you used the scheduler. This gives a sense of how much overhead
   //the scheduler causes on each insertion/removal of a process from the
   //data structure
-  double schedOverhead = durNS / accSched;
+  double schedOverhead = elapsed / accSched;
+  //double schedOverhead =std::chrono::duration_cast<std::chrono::double>(durNS / accSched)
+  //chrono::schedOverhead<double> 
   //insert into first spot in array
   retArr[0] = schedOverhead;
   //done #1
@@ -89,7 +97,7 @@ double* simulate(Scheduler* sched, int numCPUBound, int numIOBound, int numCycle
       Process* currentCPU = cpuBound->getItem(i);
       totalCPU = totalCPU + currentCPU->getCPUTime();
     }
-  double avgCPU = totalCPU / cpuSize;
+  avgCPU = totalCPU / cpuSize;
   //return to the second spot in the array
   retArr[1] = avgCPU;
   //done #2
@@ -101,8 +109,8 @@ double* simulate(Scheduler* sched, int numCPUBound, int numIOBound, int numCycle
   double totalCPUWait = 0;
   for (int i = 0; i < cpuSize; i++)
     {
-      Process* curCPU = cpuBound->getItem(i);
-      toatalCPUWait = totalCPUWait + curCPU->getWaitTime();
+      CPUBoundProcess* curCPU = cpuBound->getItem(i);
+      double toatalCPUWait = totalCPUWait + curCPU->getWaitTime(i);
     }
   double avgCPUWait = totalCPUWait / cpuSize;
   //return to the third spot in the array
@@ -119,7 +127,7 @@ double* simulate(Scheduler* sched, int numCPUBound, int numIOBound, int numCycle
       Process* currentIO = ioBound->getItem(i);
       totalIO = totalIO + currentIO->getCPUTime();
     }
-  double avgCPU = totalCPU / cpuSize;
+  avgIO = totalCPU / cpuSize;
   //return to the second spot in the array
   retArr[3] = avgIO;
   //done #4
@@ -129,16 +137,16 @@ double* simulate(Scheduler* sched, int numCPUBound, int numIOBound, int numCycle
   double totalIOWait = 0;
   for (int i = 0; i < ioSize; i++)
     {
-      Process* curIO = ioBound->getItem(i);
-      toatalIOWait = totalIOWait + curIO->getWaitTime();
+      IOBoundProcess* curIO = ioBound->getItem(i);
+      double toatalIOWait = totalIOWait + curIO->getWaitTime(i);
     }
   double avgIOWait = totalIOWait / ioSize;
   //return to the third spot in the array
   retArr[4] = avgIOWait;
   //done #5
   
-  cpuBound->~Process();
-  ioBound->~Process();
+  cpuBound->~ArrayList();
+  ioBound->~ArrayList();
 
 
   return retArr;
