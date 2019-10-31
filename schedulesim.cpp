@@ -32,4 +32,5 @@ int main(int argc, char* argv[])
     //double* fastResults = simulate(&fastRob, numCPU, numIO, numCycles);
 
     //make sure we deallocate the results arrayt when done
+    return 0;
 }
