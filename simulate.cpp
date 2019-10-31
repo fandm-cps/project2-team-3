@@ -8,26 +8,28 @@ using namespace std;
 
 double* simulate(Scheduler* sched, int numCPUBound, int numIOBound, int numCycles)
 {
-  ArrayList<CPUBoundProcess*>* cpuBound = new ArrayList<CPUBoundProcess*>;
+  ArrayList<Process*> *cpuBound = new ArrayList<Process*>();
   for (int i = 0; i < numCPUBound; i++)
     {
       CPUBoundProcess* newCPU = new CPUBoundProcess(i);
       cpuBound->pushBack(newCPU);
       //sched->addProcess(cpuBound->getItem(i));
-      sched->addProcess(cpuBound->getItem(i));
-      delete newCPU;
+      sched->addProcess(newCPU);
+      
     }
+    //return NULL;
+    //delete newCPU;
   //destructor
   //newCPU->~CPUBoundProcess();
 
-  ArrayList<IOBoundProcess*>* ioBound = new ArrayList<IOBoundProcess*>;
+  ArrayList<IOBoundProcess*>* ioBound = new ArrayList<IOBoundProcess*>();
   for (int i = 0; i < numIOBound; i++)
     {
       IOBoundProcess* newIO = new IOBoundProcess(i);
       ioBound->pushBack(newIO);
       //sched->addProcess(ioBound->getItem(i));
       sched->addProcess(ioBound->getItem(i));
-      delete newIO;
+      //delete newIO;
     }
   //destructor
   //newIO->~IOBoundProcess();
