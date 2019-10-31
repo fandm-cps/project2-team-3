@@ -13,16 +13,16 @@ int main(int argc, char* argv[])
     double numCycles = stoi(argv[3]);
 
     RoundRobin myRob;
-    FastRoundRobin fastRob;
+    //FastRoundRobin fastRob;
 
     ArrayList<Scheduler*> arr;
     arr.pushBack(&myRob);
-    arr.pushBack(&fastRob);
+    //arr.pushBack(&fastRob);
     string strArr [2] = {"RoundRobin", "FastRR"};
 
     cout << "Results: " << endl;
     double* results;
-    for(int i = 0; i < 2; i++){
+    for(int i = 0; i < 1; i++){
         results = simulate(arr.getItem(i), numCPU, numIO, numCycles);
         cout << strArr[i] << ": " << results << endl; 
     }

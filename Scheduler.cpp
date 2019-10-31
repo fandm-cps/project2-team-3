@@ -6,7 +6,7 @@ using namespace std;
 
 //initializes procQueue as an empty ArrayList.
 RoundRobin::RoundRobin(){
-    procQueue = new ArrayList<Process*>;
+    procQueue = new ArrayList<Process*>(10);
 }
 
 //deletes procQueue (not its contents!)
@@ -27,7 +27,7 @@ Process* RoundRobin::popNext(int curCycle){
     //cout<<"a"<<endl;
     for(int i = 0; i < procQueue->getSize(); i++){
         //cout<<i<<endl;
-        if(procQueue->getItem(i)->isBlocked(curCycle)){
+        if(procQueue->getFront()->isBlocked(curCycle)){
             //cout<<"b"<<endl;
             procQueue->pushBack(procQueue->getItem(i));
             procQueue->popFront();

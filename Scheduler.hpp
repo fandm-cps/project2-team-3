@@ -23,7 +23,7 @@ class Scheduler
 class RoundRobin : public Scheduler
 {
     protected:
-        List<Process*>* procQueue;
+        List<Process*> *procQueue;
 
     public:
         //initializes procQueue as an empty ArrayList.
