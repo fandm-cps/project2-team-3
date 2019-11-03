@@ -17,8 +17,8 @@ Scheduler.o: Scheduler.hpp Scheduler.cpp
 RoundRobin_TEST: RoundRobin_TEST.cpp Scheduler.o
 	$(CC) $(COVERAGE) -o RoundRobin RoundRobin_TEST.cpp Scheduler.o Process.cpp
 
-simulate.o: simulate.cpp simulate.hpp Scheduler.o ArrayList.hpp Process.hpp Process.cpp
-	$(CC) $(COVERAGE) -c simulate.cpp Scheduler.o Scheduler.cpp Scheduler.hpp Process.cpp Process.hpp
+simulate.o: simulate.cpp simulate.hpp ArrayList.hpp Process.hpp Process.cpp
+	$(CC) $(COVERAGE) -c simulate.cpp Scheduler.cpp Scheduler.hpp Process.cpp Process.hpp
 
 schedulesim: schedulesim.cpp simulate.o Scheduler.o
 	$(CC) $(CFLAGE) $(COVERAGE) -o schedulesim schedulesim.cpp simulate.o Scheduler.o Process.cpp 

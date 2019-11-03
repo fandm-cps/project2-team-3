@@ -22,7 +22,6 @@ ArrayList<item_t>::~ArrayList(){
 template <class item_t>
 void ArrayList<item_t>::pushBack(const item_t& item){
 
-    std::cout << "size: "  << size << " cap " << capacity << std::endl;
     if(size+1 == capacity){
         item_t* newItems = new item_t[capacity*2];
         
