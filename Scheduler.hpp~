@@ -42,6 +42,7 @@ class RoundRobin : public Scheduler
 
 class FastRoundRobin : public RoundRobin
 {
+public: 
   FastRoundRobin();
 };
 

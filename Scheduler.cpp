@@ -6,7 +6,7 @@ using namespace std;
 
 //initializes procQueue as an empty ArrayList.
 RoundRobin::RoundRobin(){
-    procQueue = new ArrayList<Process*>;
+    procQueue = new ArrayList<Process*>(10);
 }
 
 //deletes procQueue (not its contents!)
@@ -23,22 +23,17 @@ void RoundRobin::addProcess(Process* proc){
 //(moving any blocked processes to the back of the 
 //queue) or 0 if all processes are blocked.
 Process* RoundRobin::popNext(int curCycle){
-  cout << "hey hererere" << endl;
+
+    //cout<<"a"<<endl;
     for(int i = 0; i < procQueue->getSize(); i++){
-      cout << "anything" << endl;
-      cout << "this is the process files id" << procQueue->getFront()->getID() << endl;
-      cout << "this better work" << procQueue->getSize() << endl;
-      cout << "in for loop" << endl;
-      cout << "anything" << endl;
-      cout << "this better work" << procQueue << endl;
-      
-      if(procQueue->getFront()->isBlocked(curCycle)){
-	  cout << "in if statement" << endl;
+        //cout<<i<<endl;
+        if(procQueue->getFront()->isBlocked(curCycle)){
+            //cout<<"b"<<endl;
             procQueue->pushBack(procQueue->getItem(i));
             procQueue->popFront();
         }
         else{
-	  cout << "in else statement" << endl; 
+            //cout<<"c"<<endl;
             return procQueue->getItem(i);
         }
     }
