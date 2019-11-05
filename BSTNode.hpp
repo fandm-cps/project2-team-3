@@ -10,9 +10,9 @@ class BSTNode
 private:
 	key_t key;
 	val_t val;
-	BSTNode* rightChild;
-	BSTNode* leftChild;
-	BSTNode* parent;
+  BSTNode<key_t, val_t>* rightChild;
+	BSTNode<key_t, val_t>* leftChild;
+	BSTNode<key_t, val_t>* parent;
 
 public:
 
