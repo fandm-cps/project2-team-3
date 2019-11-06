@@ -7,6 +7,36 @@ BSTMultimap<key_t, val_t>::BSTMultimap(){
 
 template <class key_t, class val_t>
 void BSTMultimap<key_t, val_t>::insert(const key_t& key, const val_t& val){
+    BSTNode<key_t, val_t> node = new BSTNode<key_t, val_t>(key, val);
+    
+    BSTNode<key_t, val_t>* x;
+    BSTNode<key_t, val_t>* y;
+
+    y = sentinel;
+    x = root;
+
+    while(x != 0){
+        y = x;
+
+        if(key < x->getKey()){
+            x = x->getLeftChild();
+        }
+        else{
+            x = x->getRightChild();
+        }
+    }
+
+    node->setParent(y);
+    
+    if(y == 0){
+        root = node;
+    }
+    else if(key < y->getKey()){
+        y->setLeftChild(node);
+    }
+    else{
+        y->setRightChild(node);
+    }
     
 }
 
@@ -22,5 +52,21 @@ bool BSTMultimap<key_t, val_t>::isEmpty(){
 
 template <class key_t, class val_t>
 string BSTMultimap<key_t, val_t>::toString(){
+    queue<BSTNode<key_t, val_t>> q;
+    q.push(root);
+    BSTNode<key_t, val_t>* cur; 
 
+    string outStr = "";
+    while(!q.empty()){
+        cur = q.pop();
+        outStr += "(" + cur->getKey().to_string() + ", " + cur->getValue().to_string() + ")-";
+        if(cur->getLeftChild() != 0){
+            q.Enqueue(cur->getLeftChild());
+        }
+        if(cur->getRightChild != 0){
+            q.Enqueue(cur->getRightChild());
+        }
+    }
+
+    return outStr;
 }
