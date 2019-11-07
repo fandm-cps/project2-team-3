@@ -9,33 +9,33 @@ template <class key_t, class val_t>
 void BSTMultimap<key_t, val_t>::insert(const key_t& key, const val_t& val){
     BSTNode<key_t, val_t>* node = new BSTNode<key_t, val_t>(key, val);
     
-    BSTNode<key_t, val_t>* x;
-    BSTNode<key_t, val_t>* y;
+    BSTNode<key_t, val_t>* cur;
+    BSTNode<key_t, val_t>* par;
 
-    y = sentinel;
-    x = root;
+    par = sentinel;
+    cur = root;
 
-    while(x != 0){
-        y = x;
+    while(cur != 0){
+        par = cur;
 
-        if(key < x->getKey()){
-            x = x->getLeftChild();
+        if(key < cur->getKey()){
+            cur = cur->getLeftChild();
         }
         else{
-            x = x->getRightChild();
+            cur = cur->getRightChild();
         }
     }
 
-    node->setParent(y);
+    node->setParent(par);
     
-    if(y == 0){
+    if(par == 0){
         root = node;
     }
-    else if(key < y->getKey()){
-        y->setLeftChild(node);
+    else if(key < par->getKey()){
+        par->setLeftChild(node);
     }
     else{
-        y->setRightChild(node);
+        par->setRightChild(node);
     }
     
     numItems++;

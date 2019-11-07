@@ -18,13 +18,14 @@ TEST_CASE("Testing BSTNode"){
         REQUIRE(m.isEmpty() == true);
         REQUIRE(m.getSize() == 0);
 
-        m.insert(1, 10);
+        m.insert(5, 50);
         m.insert(2, 20);
         REQUIRE(m.getSize() == 2);
-        REQUIRE(m.toString() == "(1, 10)-(2, 20)-");
-        m.insert(3, 30);
+        REQUIRE(m.toString() == "(5, 50)-(2, 20)-");
+        m.insert(7, 70);
+        m.insert(9, 90);
         m.insert(4, 40);
-        REQUIRE(m.getSize() == 4);
-        REQUIRE(m.toString() == "(1, 10)-(2, 20)-(3, 30)-(4, 40)-");
+        REQUIRE(m.getSize() == 5);
+        REQUIRE(m.toString() == "(5, 50)-(2, 20)-(7, 70)-(4, 40)-(9, 90)-");
     }
 }
