@@ -17,10 +17,14 @@ class BSTMultimap
 
     public:
         BSTMultimap();
+        ~BSTMultimap();
+        
         virtual void insert(const key_t& key, const val_t& val);
         virtual int getSize();
         virtual bool isEmpty();
-        virtual string toString(); 
+        virtual string toString();
+        virtual bool contains(const key_t& key) const;
+        virtual void clear();
 };
 
 #include "BSTMultimap.tpp"
