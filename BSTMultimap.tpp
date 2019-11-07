@@ -7,7 +7,7 @@ BSTMultimap<key_t, val_t>::BSTMultimap(){
 
 template <class key_t, class val_t>
 void BSTMultimap<key_t, val_t>::insert(const key_t& key, const val_t& val){
-    BSTNode<key_t, val_t> node = new BSTNode<key_t, val_t>(key, val);
+    BSTNode<key_t, val_t>* node = new BSTNode<key_t, val_t>(key, val);
     
     BSTNode<key_t, val_t>* x;
     BSTNode<key_t, val_t>* y;
@@ -38,6 +38,7 @@ void BSTMultimap<key_t, val_t>::insert(const key_t& key, const val_t& val){
         y->setRightChild(node);
     }
     
+    numItems++;
 }
 
 template <class key_t, class val_t>
@@ -52,19 +53,20 @@ bool BSTMultimap<key_t, val_t>::isEmpty(){
 
 template <class key_t, class val_t>
 string BSTMultimap<key_t, val_t>::toString(){
-    queue<BSTNode<key_t, val_t>> q;
+    queue<BSTNode<key_t, val_t>*> q;
     q.push(root);
     BSTNode<key_t, val_t>* cur; 
 
     string outStr = "";
     while(!q.empty()){
-        cur = q.pop();
-        outStr += "(" + cur->getKey().to_string() + ", " + cur->getValue().to_string() + ")-";
+        cur = q.front();
+        q.pop();
+        outStr += "(" + to_string(cur->getKey()) + ", " + to_string(cur->getValue()) + ")-";
         if(cur->getLeftChild() != 0){
-            q.Enqueue(cur->getLeftChild());
+            q.push(cur->getLeftChild());
         }
-        if(cur->getRightChild != 0){
-            q.Enqueue(cur->getRightChild());
+        if(cur->getRightChild() != 0){
+            q.push(cur->getRightChild());
         }
     }
 

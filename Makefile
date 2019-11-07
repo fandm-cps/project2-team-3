@@ -3,7 +3,7 @@ CFLAGS = -Wall
 COVERAGE = --coverage
 C11 = -std=c++11
 
-all: ArrayList_TEST LinkedList_TEST RoundRobin_TEST schedulesim BSTNode_TEST
+all: ArrayList_TEST LinkedList_TEST RoundRobin_TEST schedulesim BSTNode_TEST BSTMultimap_TEST
 
 ArrayList_TEST: ArrayList_TEST.cpp ArrayList.hpp
 	$(CC) -o ArrayList ArrayList_TEST.cpp
@@ -26,6 +26,9 @@ schedulesim: schedulesim.cpp simulate.o Scheduler.o
 BSTNode_TEST: BSTNode_TEST.cpp BSTNode.hpp
 	$(CC) -o BSTNode BSTNode_TEST.cpp
 
+BSTMultimap_TEST: BSTMultimap_TEST.cpp BSTMultimap.hpp
+	$(CC) -o BSTMultimap BSTMultimap_TEST.cpp
+
 coverage: ArrayList_TEST.cpp ArrayList.hpp
 	$(CC) $(CFLAGE) $(COVERAGE) ArrayList_TEST.cpp ArrayList.hpp
 
@@ -38,5 +41,8 @@ coverage2: LinkedList_TEST.cpp LinkedList.hpp
 coverage3: BSTNode_TEST.cpp BSTNode.hpp
 	$(CC) $(CFLAGE) $(COVERAGE) BSTNode_TEST.cpp BSTNode.hpp
 
+coverage4: BSTMultimap_TEST.cpp BSTMultimap.hpp
+	$(CC) $(CFLAGE) $(COVERAGE) BSTMultimap_TEST.cpp BSTMultimap.hpp
+
 clean:
-	rm ArrayList; rm RoundRobin; rm LinkedList; rm schedulesim; rm BSTNode
+	rm ArrayList; rm RoundRobin; rm LinkedList; rm schedulesim; rm BSTNode; rm BSTMultimap; rm*.o;

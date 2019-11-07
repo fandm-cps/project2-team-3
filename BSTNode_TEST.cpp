@@ -7,9 +7,9 @@ using namespace std;
 
 TEST_CASE("Testing BSTNode"){
     SECTION("Constructor"){
-        BSTNode<char, int> a = BSTNode<char, int>( 'a', 1);
+        BSTNode<char, int> a = BSTNode<char, int>('a', 1);
         BSTNode<double, double> b = BSTNode<double, double>(63, 2);
-        BSTNode<int, char> c = BSTNode<int, char> (2, 'c');
+        BSTNode<int, char> c = BSTNode<int, char>(2, 'c');
     }
 
     SECTION("setKey/Value & getKey/Value"){
