@@ -14,9 +14,17 @@ TEST_CASE("Testing BSTNode"){
     }
 
     SECTION("getSize, isEmpty, insert"){
-        BSTMultimap<char, int> a = BSTMultimap<char, int>();
+        BSTMultimap<int, int> m = BSTMultimap<int, int>();
+        REQUIRE(m.isEmpty() == true);
+        REQUIRE(m.getSize() == 0);
 
-        REQUIRE(a.isEmpty() == true);
-        REQUIRE(a.getSize() == 0);
+        m.insert(1, 10);
+        m.insert(2, 20);
+        REQUIRE(m.getSize() == 2);
+        REQUIRE(m.toString() == "(1, 10)-(2, 20)-");
+        m.insert(3, 30);
+        m.insert(4, 40);
+        REQUIRE(m.getSize() == 4);
+        REQUIRE(m.toString() == "(1, 10)-(2, 20)-(3, 30)-(4, 40)-");
     }
 }
