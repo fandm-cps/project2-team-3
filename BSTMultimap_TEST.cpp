@@ -60,7 +60,7 @@ TEST_CASE("Testing BSTNode"){
 	REQUIRE(itt.getValue() == 90);
      }
 
-     SECTION("TESTING FINDFIRST"){
+     /**SECTION("TESTING FINDFIRST"){
     BSTMultimap<int, int> m = BSTMultimap<int, int>();
     //REQUIRE(m.isEmpty() == true);
     //REQUIRE(m.getSize() == 0);
@@ -88,7 +88,7 @@ TEST_CASE("Testing BSTNode"){
 	cout << "val: " << itt.getValue() << endl;
 	REQUIRE(itt.getKey() == 9);
 	cout << "he" << endl;
-     }
+	}**/
 
 
      /**SECTION("TESTING FINDLAST"){
