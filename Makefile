@@ -45,4 +45,4 @@ coverage4: BSTMultimap_TEST.cpp BSTMultimap.hpp
 	$(CC) $(CFLAGE) $(COVERAGE) BSTMultimap_TEST.cpp BSTMultimap.hpp
 
 clean:
-	rm ArrayList; rm RoundRobin; rm LinkedList; rm schedulesim; rm BSTNode; rm BSTMultimap; rm*.o;
+	rm ArrayList; rm RoundRobin; rm LinkedList; rm schedulesim; rm BSTNode; rm BSTMultimap; rm *.o;
