@@ -6,31 +6,6 @@ this->sentinel = sentinel;
 
 }
 
-/*template <class key_t, class val_t>
-void BSTForwardIterator<key_t, val_t>::next(){
-
-if ((this->current)->getRightChild() != this->sentinel){
-     this->current = (this->current)->getRightChild();
-
-	if (this->current == this->sentinel){
-	//do nothing
-      }
-	if ((this->current)->getLeftChild() != sentinel){
-   	this->current = (this->current)->getLeftChild();
-       }
-}
-else{
-BSTNode<key_t, val_t>* tmp = (this->current)->getParent();
-while (tmp != this->sentinel && (this->current) == tmp->getRightChild())
-	{
-	this->current = tmp;
-	tmp = tmp->getParent();
-	}
-this->current = tmp;
-}
-}
-*/
-
 template <class key_t, class val_t>
 void BSTForwardIterator<key_t, val_t>::next(){
 	if(current != sentinel){
