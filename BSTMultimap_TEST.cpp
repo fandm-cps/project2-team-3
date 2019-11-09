@@ -37,10 +37,10 @@ TEST_CASE("Testing BSTMultimap"){
     SECTION("getMin"){
         BSTMultimap<int, int> m = BSTMultimap<int, int>();
         
-        REQUIRE(m.getMin().getKey() == 0);
         m.insert(8, 80);
         m.insert(3, 30);
         
+        REQUIRE(m.getMax().getValue() == 80);
         m.getMin().setValue(300);
         REQUIRE(m.getMin().getValue() == 300);
         m.getMin().setValue(30);
@@ -54,6 +54,7 @@ TEST_CASE("Testing BSTMultimap"){
         m.insert(6, 60);
         m.insert(14, 140);
         m.insert(4, 40);
+        REQUIRE(m.getMax().getValue() == 140);
         m.insert(7, 70);
         m.insert(13, 130);
         BSTForwardIterator<int, int> i = m.getMin();
