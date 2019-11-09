@@ -131,11 +131,52 @@ TEST_CASE("Testing BSTNode"){
         m.insert(4, 40);
         
 	BSTForwardIterator<int, int> min = m.getMin();
-	BSTForwardIterator<int, int> succ = m.remove(min);
+	BSTForwardIterator<int, int> copy = min;
+	copy.next();
+	copy.next();
+	REQUIRE(copy.getValue() == 50);
+	cout << "copy.getValue(): " << copy.getValue() << endl;
+	BSTForwardIterator<int, int> copySucc = m.remove(copy);
+	REQUIRE(copySucc.getValue() == 70);
+	cout << "copySucc: " << copySucc.getValue() << endl;
+	BSTForwardIterator<int, int> minSucc = m.remove(min);
 
-	cout << "succ Val: " << (succ.getValue()) << endl;
+	REQUIRE(minSucc.getValue() == 40);
+	cout << "minSucc Val: " << (minSucc.getValue()) << endl;
 
+							   //BSTForwardIterator<int, int> max = m.getMax();
+							   //BSTForwardIterator<int, int> maxSucc = m.remove(max);
+							   //REQUIRE(maxSucc.getValue() == 70);
+        //cout << "maxSucc Val: " << (maxSucc.getValue()) << endl;
 	
+     }
+
+        SECTION("TESTING PASTEND, GETKEY, & SETVALUE"){
+
+       BSTMultimap<int, int> m = BSTMultimap<int, int>();
+        m.insert(5, 50);
+        m.insert(2, 20);
+        m.insert(7, 70);
+        m.insert(9, 90);
+        m.insert(4, 40);
+	BSTForwardIterator<int, int> min = m.getMin();
+	min.next();
+	REQUIRE(min.getKey() == 4);
+	cout << "getKey: " << min.getKey() << endl;
+	min.setValue(44);
+	REQUIRE(min.getValue() == 44);
+	cout << "here" << endl;
+	REQUIRE(min.isPastEnd() == false);
+	cout << "here2" << endl;
+	cout << "is it: " << min.isPastEnd() << endl;
+	min.next();
+	min.next();
+	min.next();
+	min.next();
+	//min.next();
+	REQUIRE(min.isPastEnd() == true);
+	cout << "is it: " << min.isPastEnd() << endl;
+
      }
 }
 
