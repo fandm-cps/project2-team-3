@@ -127,3 +127,20 @@ string BSTMultimap<key_t, val_t>::toString(){
 
     return outStr;
 }
+
+template <class key_t, class val_t>
+BSTForwardIterator<key_t, val_t> BSTMultimap<key_t, val_t>::getMin() const{
+
+BSTNode<key_t, val_t>* runner = this->root;
+
+if (runner == this->sentinel){
+
+   return BSTForwardIterator<key_t, val_t>(sentinel, 0);
+   }
+
+while (runner->getLeftChild() != sentinel){
+
+   runner = runner->getLeftChild();
+}
+return BSTForwardIterator<key_t, val_t>(runner, 0);
+}

@@ -2,6 +2,7 @@
 #define BSTMULTIMAP
 
 #include "BSTNode.hpp"
+#include "BSTForwardIterator.hpp"
 #include <string>
 #include <queue>
 
@@ -25,6 +26,7 @@ class BSTMultimap
         virtual string toString();
         virtual bool contains(const key_t& key) const;
         virtual void clear();
+        virtual BSTForwardIterator<key_t, val_t> getMin() const;
 };
 
 #include "BSTMultimap.tpp"
