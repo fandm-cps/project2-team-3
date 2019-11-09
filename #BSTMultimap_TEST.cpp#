@@ -120,6 +120,24 @@ TEST_CASE("Testing BSTNode"){
 	REQUIRE(itt.getKey() == 9);
 	//cout << "he" << endl;
 	}**/
+
+     SECTION("TESTING REMOVE"){
+
+       BSTMultimap<int, int> m = BSTMultimap<int, int>();
+        m.insert(5, 50);
+        m.insert(2, 20);
+        m.insert(7, 70);
+        m.insert(9, 90);
+        m.insert(4, 40);
+        
+	BSTForwardIterator<int, int> min = m.getMin();
+	BSTForwardIterator<int, int> succ = m.remove(min);
+
+	REQUIRE(succ.getValue() == 40);
+	cout << "succ Val: " << (succ.getValue()) << endl;
+
+	
+     }
 }
 
      
