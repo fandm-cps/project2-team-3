@@ -13,24 +13,22 @@ int main(int argc, char* argv[])
     double numCycles = stoi(argv[3]);
 
     RoundRobin myRob;
-    //FastRoundRobin fastRob;
+    FastRoundRobin fastRob;
 
     ArrayList<Scheduler*> arr;
     arr.pushBack(&myRob);
-    //arr.pushBack(&fastRob);
+    arr.pushBack(&fastRob);
     string strArr [2] = {"RoundRobin", "FastRR"};
 
-    cout << "Results: " << endl;
     double* results;
-    for(int i = 0; i < 1; i++){
+    for(int i = 0; i < 2; i++){
         results = simulate(arr.getItem(i), numCPU, numIO, numCycles);
-        cout << strArr[i] << ": " << results << endl; 
+        cout << strArr[i] << " Overhead: " << results[0] << endl;
+        cout << strArr[i] << " Avg CPUtime (CPUBound): " << results[1] << endl;
+        cout << strArr[i] << " Avg WAITtime (CPUBound): " << results[2] << endl;
+        cout << strArr[i] << " Avg CPUtime (IOBound): " << results[3] << endl;
+        cout << strArr[i] << " Avg WAITtime (IOBound): " << results[4] << endl;
     }
 
-    //Simulate newSim;
-    //double* regResults = simulate(&myRob, numCPU, numIO, numCycles);
-    //double* fastResults = simulate(&fastRob, numCPU, numIO, numCycles);
-
-    //make sure we deallocate the results arrayt when done
     return 0;
 }

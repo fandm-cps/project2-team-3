@@ -26,7 +26,7 @@ TEST_CASE("Testing ArrayList Template"){
         REQUIRE(a.getBack() == 536);
 
         a.pushBack(7);
-        REQUIRE(a.getCapacity() == 2);
+        REQUIRE(a.getCapacity() == 4);
         REQUIRE(a.getBack() == 7);
 
         a.pushBack(84);

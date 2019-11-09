@@ -3,7 +3,7 @@ CFLAGS = -Wall
 COVERAGE = --coverage
 C11 = -std=c++11
 
-all: ArrayList_TEST LinkedList_TEST RoundRobin_TEST schedulesim
+all: ArrayList_TEST LinkedList_TEST RoundRobin_TEST schedulesim BSTNode_TEST BSTMultimap_TEST
 
 ArrayList_TEST: ArrayList_TEST.cpp ArrayList.hpp
 	$(CC) -o ArrayList ArrayList_TEST.cpp
@@ -17,11 +17,17 @@ Scheduler.o: Scheduler.hpp Scheduler.cpp
 RoundRobin_TEST: RoundRobin_TEST.cpp Scheduler.o
 	$(CC) $(COVERAGE) -o RoundRobin RoundRobin_TEST.cpp Scheduler.o Process.cpp
 
-simulate.o: simulate.cpp simulate.hpp Scheduler.o ArrayList.hpp Process.hpp Process.cpp
-	$(CC) $(COVERAGE) -c simulate.cpp Scheduler.o Scheduler.cpp Scheduler.hpp Process.cpp Process.hpp
+simulate.o: simulate.cpp simulate.hpp ArrayList.hpp Process.hpp Process.cpp
+	$(CC) $(COVERAGE) -c simulate.cpp Scheduler.cpp Scheduler.hpp Process.cpp Process.hpp
 
 schedulesim: schedulesim.cpp simulate.o Scheduler.o
-	$(CC) $(CFLAGE) $(COVERAGE) -o schedulesim schedulesim.cpp simulate.o Scheduler.o Process.cpp 
+	$(CC) $(CFLAGE) $(COVERAGE) -o schedulesim schedulesim.cpp simulate.o Scheduler.o Process.cpp
+
+BSTNode_TEST: BSTNode_TEST.cpp BSTNode.hpp
+	$(CC) -o BSTNode BSTNode_TEST.cpp
+
+BSTMultimap_TEST: BSTMultimap_TEST.cpp BSTMultimap.hpp
+	$(CC) -o BSTMultimap BSTMultimap_TEST.cpp
 
 coverage: ArrayList_TEST.cpp ArrayList.hpp
 	$(CC) $(CFLAGE) $(COVERAGE) ArrayList_TEST.cpp ArrayList.hpp
@@ -32,5 +38,11 @@ coverage1: RoundRobin_TEST.cpp Scheduler.hpp Scheduler.o
 coverage2: LinkedList_TEST.cpp LinkedList.hpp
 	$(CC) $(CFLAGE) $(COVERAGE) LinkedList_TEST.cpp LinkedList.hpp
 
+coverage3: BSTNode_TEST.cpp BSTNode.hpp
+	$(CC) $(CFLAGE) $(COVERAGE) BSTNode_TEST.cpp BSTNode.hpp
+
+coverage4: BSTMultimap_TEST.cpp BSTMultimap.hpp
+	$(CC) $(CFLAGE) $(COVERAGE) BSTMultimap_TEST.cpp BSTMultimap.hpp
+
 clean:
-	rm ArrayList; rm RoundRobin; rm LinkedList; rm schedulesim
+	rm ArrayList; rm RoundRobin; rm LinkedList; rm schedulesim; rm BSTNode; rm BSTMultimap; rm *.o;

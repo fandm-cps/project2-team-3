@@ -8,94 +8,56 @@ using namespace std;
 
 double* simulate(Scheduler* sched, int numCPUBound, int numIOBound, int numCycles)
 {
+  
   ArrayList<Process*> *cpuBound = new ArrayList<Process*>();
-  for (int i = 0; i < numCPUBound; i++)
-    {
-      CPUBoundProcess* newCPU = new CPUBoundProcess(i);
-      cpuBound->pushBack(newCPU);
-      //sched->addProcess(cpuBound->getItem(i));
-      sched->addProcess(newCPU);
-      
-    }
-    //return NULL;
-    //delete newCPU;
-  //destructor
-  //newCPU->~CPUBoundProcess();
+  for (int i = 0; i < numCPUBound; i++){
+    CPUBoundProcess* newCPU = new CPUBoundProcess(i);
+    cpuBound->pushBack(newCPU);
+    sched->addProcess(newCPU);
+  }
 
   ArrayList<IOBoundProcess*>* ioBound = new ArrayList<IOBoundProcess*>();
-  for (int i = 0; i < numIOBound; i++)
-    {
-      IOBoundProcess* newIO = new IOBoundProcess(i);
-      ioBound->pushBack(newIO);
-      //sched->addProcess(ioBound->getItem(i));
-      sched->addProcess(ioBound->getItem(i));
-      //delete newIO;
-    }
-  //destructor
-  //newIO->~IOBoundProcess();
+  for (int i = 0; i < numIOBound; i++){
+    IOBoundProcess* newIO = new IOBoundProcess(i);
+    ioBound->pushBack(newIO);
+    sched->addProcess(ioBound->getItem(i));
+  }
 
   Process* next;
   int simCycles = 0;
   double accSched = 0;
   int cyclesConsumed;
-//cout<<"HI"<<endl;
+
   //start the timer
   auto start = std::chrono::system_clock::now();
-  while (simCycles < numCycles)
-    {
-        //cout<<simCycles<<endl;
-      //tally to keep track of numtimes scheduler has been accessed
-      accSched += 1;
-      //Get the next process from the schedule
-      //cout<<"D"<<endl;
-      next = sched->popNext(simCycles);
-      //cout<<"A"<<endl;
-      //If the scheduler returns a null pointer
-      if (next == 0)
-	{
-        //cout<<"B"<<endl;
-	  //just increment the cycle number by 10
-	  simCycles += 10;
-	}
-      else{
-          //cout<<"C"<<endl;
-	//Call the process' useCPU method with the current cycle number
-	//and slice size of 10
-	cyclesConsumed = next->useCPU(simCycles, 10);
-	//The useCPU method returns the number of cycles used by the process
-	//(which may not be the entire slice).
-	//Add that to the number of simulated cycles so far
-	simCycles = simCycles + cyclesConsumed;
-	//Add the process back into the scheduler
-	sched->addProcess(next);
-      }
+  while (simCycles < numCycles){
+    accSched += 1;
+    
+    next = sched->popNext(simCycles); //Get the next process from the schedule
       
+    if (next == 0){     //If the scheduler returns a null pointer
+	    simCycles += 10;  //just increment the cycle number by 10
+	  }
+    else{
+      cyclesConsumed = next->useCPU(simCycles, 10); //the number of cycles used by the process
+      simCycles = simCycles + cyclesConsumed; // Add that to the number of simulated cycles so far.
+      sched->addProcess(next);  //Add the process back into the scheduler
     }
-    //cout<<"HI AGAIN"<<endl;
-  //end the timer
-  auto end = std::chrono::system_clock::now();
-  //get the duration
-  auto dur = start - end;
-  //get the nanosecond
-  auto durNS = chrono::duration_cast<chrono::nanoseconds>(dur);
-  //double doubleDurNS = 
-  //get the number of ticks
-  double elapsed = durNS.count();
-  //When the simulation is over, allocate and fill a 5 element array
+      
+  }
   
-  double* retArr = new double[5];
+  auto end = std::chrono::system_clock::now();  //end the timer
+  auto dur = end - start; //get the duration
+  auto durNS = chrono::duration_cast<chrono::nanoseconds>(dur); //get the nanosecond
+  double elapsed = durNS.count(); //get the number of ticks
+  
+  double* retArr = new double[5]; //allocate and fill a 5 element array
 
   //The number of actual nanoseconds the simulation took divided by the number
   //of times you used the scheduler. This gives a sense of how much overhead
   //the scheduler causes on each insertion/removal of a process from the
   //data structure
-  double schedOverhead = elapsed / accSched;
-  //double schedOverhead =std::chrono::duration_cast<std::chrono::double>(durNS / accSched)
-  //chrono::schedOverhead<double> 
-  //insert into first spot in array
-  retArr[0] = schedOverhead;
-  //done #1
-    
+  retArr[0] = elapsed / accSched; //insert into first spot in array
   
   //The average CPU time of all CPU-bound processes
   //(using the getCPUTime method)
@@ -116,22 +78,6 @@ double* simulate(Scheduler* sched, int numCPUBound, int numIOBound, int numCycle
   retArr[1] = avgCPU;
   retArr[2] = avgCPUWait;
   //done #2 & #3
-  
-  
-  //The average wait time of all CPU-bound processes
-  //(using the getWaitTime method)
-  
-  /*double totalCPUWait = 0;
-  for (int i = 0; i < cpuSize; i++)
-    {
-      CPUBoundProcess* curCPU = cpuBound->getItem(i);
-      double toatalCPUWait = totalCPUWait + curCPU->getWaitTime(i);
-    }
-  double avgCPUWait = totalCPUWait / cpuSize;
-  //return to the third spot in the array
-  retArr[2] = avgCPUWait;
-  //done #3*/
-
 
   //The average CPU time of all I/O-bound processes
   int ioSize = ioBound->getSize();
@@ -152,23 +98,8 @@ double* simulate(Scheduler* sched, int numCPUBound, int numIOBound, int numCycle
   retArr[4] = avgIOWait;
   //done #4 & #5
 
-    /*
-  //The average wait time of all I/O-bound processes
-  double totalIOWait = 0;
-  for (int i = 0; i < ioSize; i++)
-    {
-      IOBoundProcess* curIO = ioBound->getItem(i);
-      double toatalIOWait = totalIOWait + curIO->getWaitTime(i);
-    }
-  double avgIOWait = totalIOWait / ioSize;
-  //return to the third spot in the array
-  retArr[4] = avgIOWait;
-  //done #5
-  */
-  
-  //cpuBound->~ArrayList();
-  //ioBound->~ArrayList();
+  for (int k = 0; k < numCPUBound; k++){ delete cpuBound->getItem(k); }
+  for (int l = 0; l < numIOBound; l++){ delete ioBound->getItem(l); }
 
   return retArr;
-  
 }
