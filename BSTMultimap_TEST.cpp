@@ -60,21 +60,21 @@ TEST_CASE("Testing BSTNode"){
 	REQUIRE(itt.getValue() == 90);
      }
 
-     /**SECTION("TESTING FINDFIRST"){
+     SECTION("TESTING EMPTY FINDFIRST"){
     BSTMultimap<int, int> m = BSTMultimap<int, int>();
     //REQUIRE(m.isEmpty() == true);
     //REQUIRE(m.getSize() == 0);
 
-        m.insert(5, 50);
+    //m.insert(5, 50);
 	//BSTForwardIterator<int, int> itt1 = m.getMax();
 	//REQUIRE(itt1.getValue() == 50);
-        m.insert(2, 20);
+    //m.insert(2, 20);
         //REQUIRE(m.getSize() == 2);
         //REQUIRE(m.toString() == "(5, 50)-(2, 20)-");
-        m.insert(7, 70);
-	m.insert(9, 50);
-        //m.insert(9, 90);
-        //m.insert(4, 40);
+    //m.insert(7, 70);
+    //m.insert(9, 50);
+    //m.insert(9, 90);
+    //m.insert(4, 40);
 	
 	//m.insert(9, 2);
 	//m.insert(9, 100);
@@ -85,13 +85,37 @@ TEST_CASE("Testing BSTNode"){
         //REQUIRE(m.toString() == "(5, 50)-(2, 20)-(7, 70)-(4, 40)-(9, 90)-");
 	cout << "here" << endl;
 	BSTForwardIterator<int, int> itt = m.findFirst(9);
-	cout << "val: " << itt.getValue() << endl;
-	REQUIRE(itt.getKey() == 9);
+	cout << "val: " << itt.isPastEnd() << endl;
+	REQUIRE(itt.isPastEnd() == true);
 	cout << "he" << endl;
-	}**/
+	}
 
 
-     /**SECTION("TESTING FINDLAST"){
+     SECTION("TESTING FULL FINDFIRST"){
+    BSTMultimap<int, int> m = BSTMultimap<int, int>();
+    //REQUIRE(m.isEmpty() == true);
+    //REQUIRE(m.getSize() == 0);
+
+    m.insert(5, 50);
+        m.insert(2, 20);
+	m.insert(7, 70);
+        m.insert(9, 90);
+	m.insert(4, 40);
+	m.insert(6, 60);
+
+	BSTForwardIterator<int, int> itt = m.findFirst(5);
+	REQUIRE(itt.getKey() == 5);
+    cout << "ittVal: " << itt.getValue() << endl;
+
+	BSTForwardIterator<int, int> itt2 = m.findFirst(9);
+	REQUIRE(itt2.getKey() == 9);
+    cout << "itt2Val: " << itt2.getValue() << endl;
+    
+
+     }
+
+
+     SECTION("TESTING FINDLAST"){
     BSTMultimap<int, int> m = BSTMultimap<int, int>();
     //REQUIRE(m.isEmpty() == true);
     //REQUIRE(m.getSize() == 0);
@@ -119,7 +143,7 @@ TEST_CASE("Testing BSTNode"){
 	cout << "val: " << itt.getValue() << endl;
 	REQUIRE(itt.getKey() == 9);
 	//cout << "he" << endl;
-	}**/
+	}
 
      SECTION("TESTING REMOVE"){
 
@@ -178,6 +202,25 @@ TEST_CASE("Testing BSTNode"){
 	cout << "is it: " << min.isPastEnd() << endl;
 
      }
+
+	SECTION("TESTING REMOVAL OF A PARENT W TWO CHILDREN"){
+
+       BSTMultimap<int, int> m = BSTMultimap<int, int>();
+       //REQUIRE(m.contains(50) == false);
+        m.insert(5, 50);
+        m.insert(2, 20);
+	m.insert(7, 70);
+        m.insert(9, 90);
+	m.insert(4, 40);
+	m.insert(6, 60);
+	BSTForwardIterator<int, int> first = m.findLast(7);
+	//first.next();
+	//first.next();
+	cout << "toString: " << m.toString() << endl;
+	cout << "val: " << first.getValue() << endl;
+	BSTForwardIterator<int, int> succ = m.remove(first);
+	cout << "succ val: " << succ.getValue() << endl;
+	}
 }
 
      
