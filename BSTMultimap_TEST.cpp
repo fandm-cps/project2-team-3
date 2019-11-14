@@ -83,11 +83,11 @@ TEST_CASE("Testing BSTNode"){
 
         //REQUIRE(m.getSize() == 5);
         //REQUIRE(m.toString() == "(5, 50)-(2, 20)-(7, 70)-(4, 40)-(9, 90)-");
-	cout << "here" << endl;
+	//cout << "here" << endl;
 	BSTForwardIterator<int, int> itt = m.findFirst(9);
-	cout << "val: " << itt.isPastEnd() << endl;
+	//cout << "val: " << itt.isPastEnd() << endl;
 	REQUIRE(itt.isPastEnd() == true);
-	cout << "he" << endl;
+	//cout << "he" << endl;
 	}
 
 
@@ -105,11 +105,11 @@ TEST_CASE("Testing BSTNode"){
 
 	BSTForwardIterator<int, int> itt = m.findFirst(5);
 	REQUIRE(itt.getKey() == 5);
-    cout << "ittVal: " << itt.getValue() << endl;
+	//cout << "ittVal: " << itt.getValue() << endl;
 
 	BSTForwardIterator<int, int> itt2 = m.findFirst(9);
 	REQUIRE(itt2.getKey() == 9);
-    cout << "itt2Val: " << itt2.getValue() << endl;
+	//cout << "itt2Val: " << itt2.getValue() << endl;
     
 
      }
@@ -140,12 +140,12 @@ TEST_CASE("Testing BSTNode"){
         //REQUIRE(m.toString() == "(5, 50)-(2, 20)-(7, 70)-(4, 40)-(9, 90)-");
 	//cout << "here" << endl;
 	BSTForwardIterator<int, int> itt = m.findLast(9);
-	cout << "val: " << itt.getValue() << endl;
+	//cout << "val: " << itt.getValue() << endl;
 	REQUIRE(itt.getKey() == 9);
 	//cout << "he" << endl;
 	}
 
-     SECTION("TESTING REMOVE"){
+     /**SECTION("TESTING REMOVE"){
 
        BSTMultimap<int, int> m = BSTMultimap<int, int>();
         m.insert(5, 50);
@@ -159,21 +159,21 @@ TEST_CASE("Testing BSTNode"){
 	copy.next();
 	copy.next();
 	REQUIRE(copy.getValue() == 50);
-	cout << "copy.getValue(): " << copy.getValue() << endl;
+	//cout << "copy.getValue(): " << copy.getValue() << endl;
 	BSTForwardIterator<int, int> copySucc = m.remove(copy);
 	REQUIRE(copySucc.getValue() == 70);
-	cout << "copySucc: " << copySucc.getValue() << endl;
+	//cout << "copySucc: " << copySucc.getValue() << endl;
 	BSTForwardIterator<int, int> minSucc = m.remove(min);
 
 	REQUIRE(minSucc.getValue() == 40);
-	cout << "minSucc Val: " << (minSucc.getValue()) << endl;
+	//cout << "minSucc Val: " << (minSucc.getValue()) << endl;
 
 							   //BSTForwardIterator<int, int> max = m.getMax();
 							   //BSTForwardIterator<int, int> maxSucc = m.remove(max);
 							   //REQUIRE(maxSucc.getValue() == 70);
         //cout << "maxSucc Val: " << (maxSucc.getValue()) << endl;
 	
-     }
+	}**/
 
         SECTION("TESTING PASTEND, GETKEY, & SETVALUE"){
 
@@ -186,40 +186,53 @@ TEST_CASE("Testing BSTNode"){
 	BSTForwardIterator<int, int> min = m.getMin();
 	min.next();
 	REQUIRE(min.getKey() == 4);
-	cout << "getKey: " << min.getKey() << endl;
+	//cout << "getKey: " << min.getKey() << endl;
 	min.setValue(44);
 	REQUIRE(min.getValue() == 44);
-	cout << "here" << endl;
+	//cout << "here" << endl;
 	REQUIRE(min.isPastEnd() == false);
-	cout << "here2" << endl;
-	cout << "is it: " << min.isPastEnd() << endl;
+	//cout << "here2" << endl;
+	//cout << "is it: " << min.isPastEnd() << endl;
 	min.next();
 	min.next();
 	min.next();
 	min.next();
 	//min.next();
 	REQUIRE(min.isPastEnd() == true);
-	cout << "is it: " << min.isPastEnd() << endl;
+	//cout << "is it: " << min.isPastEnd() << endl;
 
      }
 
 	SECTION("TESTING REMOVAL OF A PARENT W TWO CHILDREN"){
-
+	  //REQUIRE(1 == 1);
        BSTMultimap<int, int> m = BSTMultimap<int, int>();
        //REQUIRE(m.contains(50) == false);
-        m.insert(5, 50);
-        m.insert(2, 20);
-	m.insert(7, 70);
-        m.insert(9, 90);
-	m.insert(4, 40);
-	m.insert(6, 60);
-	BSTForwardIterator<int, int> first = m.findLast(7);
-	//first.next();
-	//first.next();
+        m.insert(50, 500);
+        m.insert(20, 200);
+	m.insert(70, 700);
+        m.insert(90, 900);
+	m.insert(40, 400);
+	m.insert(60, 600);
+	m.insert(10, 100);
+	m.insert(80, 800);
+	m.insert(75, 750);
+	m.insert(85, 850);
+	//m.insert(10, 100);
+	//m.insert(11, 110);
+	//m.insert(12, 120);
+	//m.insert(13, 130);
+	//m.insert(14, 140);
+	//m.insert(15, 150);
+	//m.insert(16, 160);
+	//m.insert(17, 170);
+	BSTForwardIterator<int, int> first = m.findLast(70);
+	
 	cout << "toString: " << m.toString() << endl;
 	cout << "val: " << first.getValue() << endl;
 	BSTForwardIterator<int, int> succ = m.remove(first);
 	cout << "succ val: " << succ.getValue() << endl;
+	REQUIRE(succ.getValue() == 750);
+	std::cout << "AFTER REQUIRE" << std::endl;
 	}
 }
 

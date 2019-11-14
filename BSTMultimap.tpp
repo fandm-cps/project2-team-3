@@ -1,4 +1,4 @@
- 
+#include <iostream>
 template <class key_t, class val_t>
 BSTMultimap<key_t, val_t>::BSTMultimap(){
     sentinel = 0;
@@ -253,30 +253,54 @@ return BSTForwardIterator<key_t, val_t>(last, 0);
 
 template <class key_t, class val_t>
 void BSTMultimap<key_t, val_t>::transplant(BSTNode<key_t, val_t>* u, BSTNode<key_t, val_t>* v){
-
+  std::cout << "uVal: " << u->getValue() << std::endl;
+  //std::cout << "vVal: " << v->getValue() << std::endl;
+  bool tf = true;
+  if (v != this->sentinel){
+    tf = false;
+    }
+  std::cout << "is v = sent? " << tf << endl;
+  std::cout << "TF: " << (u->getParent())->getLeftChild()->getValue() << std::endl;
 if (u->getParent() == sentinel){
-
+  std::cout << "First if? " << std::endl;
    (this->root)->setKey(v->getKey());
    (this->root)->setValue(v->getValue());
 }
 else if (u == (u->getParent())->getLeftChild()){
-
+  std::cout << "u == uPL" << std::endl;
      BSTNode<key_t, val_t>* parLeft = (u->getParent())->getLeftChild();
-     parLeft->setKey(v->getKey());
-     parLeft->setValue(v->getValue());
+     if (v != this-> sentinel){
+       if (v->getKey() < parLeft->getKey())
+	 {
+	   parLeft->setLeftChild(v);
+	 }
+       else{
+	 std::cout << "final transplant else" << std::endl;
+	 parLeft->setRightChild(v);
+       }
+     }
+     parLeft->setLeftChild(v);
+     //parLeft->setKey(v->getKey());
+     //parLeft->setValue(v->getValue());
+     std::cout << "done u == uPL" << std::endl;
 }
 else{
-
-	BSTNode<key_t, val_t>* parRight = (u->getParent())->getRightChild();
-	parRight->setKey(v->getKey());
-	parRight->setValue(v->getValue());
+  std::cout << "Ohhhh here" << std::endl;
+	BSTNode<key_t, val_t>* par = (u->getParent());
+	par->setRightChild(v);
+	//parRight->setKey(v->getKey());
+	//parRight->setValue(v->getValue());
 	}
-
+std::cout << "Out of If/Else" << std::endl;
 if (v != this->sentinel){
-   BSTNode<key_t, val_t>* vP = v->getParent();
+  std::cout << "Not Sent" << std::endl;
+  //BSTNode<key_t, val_t>* vP = v->getParent();
+   std::cout << "Here" << std::endl;
    BSTNode<key_t, val_t>* uP = u->getParent();
-   vP->setKey(uP->getKey());
-   vP->setValue(uP->getValue());
+   v->setParent(uP);
+   std::cout << "Here2" << std::endl;
+   //vP->setKey(uP->getKey());
+   //vP->setValue(uP->getValue());
 }
 
 }
@@ -300,31 +324,51 @@ else if(runner->getRightChild() == sentinel){
     this->transplant(runner, runner->getLeftChild());
 }
 else{
+std::cout << "in the part with two children" << std::endl;
 	BSTNode<key_t, val_t>* tmpNode = runner->getRightChild();
+	//std::cout << "left childs val: " << tmpNode->getLeftChild()->getValue() << std::endl;
+	int loops = 0;
 	while (tmpNode->getLeftChild() != sentinel){
-
+	std::cout << "in the while loop with two children" << std::endl;
+	std::cout << "loops: " << loops << std::endl;
+	loops = loops + 1;
 	tmpNode = tmpNode->getLeftChild();
 	}
+	std::cout << "herere" << std::endl;
+	std::cout << "tmpPar: " << tmpNode->getParent()->getValue() << std::endl;
 	if (tmpNode->getParent() != runner){
+	std::cout << "IN THE IF" << std::endl;
+	//std::cout << "IN THE IF" << std::endl;
 	   this->transplant(tmpNode, tmpNode->getRightChild());
+	   std::cout << "AFTER TRANSPLANT" << std::endl;
+	   //BSTNode<key_t, val_t>* tmpRight = tmpNode->getRightChild();
+	   tmpNode->setRightChild(runner->getRightChild());
 	   BSTNode<key_t, val_t>* tmpRight = tmpNode->getRightChild();
-	   BSTNode<key_t, val_t>* tmpRightPar = (tmpNode->getRightChild())->getParent();
-	   tmpRight->setKey((runner->getRightChild())->getKey());
-	   tmpRight->setValue((runner->getRightChild())->getValue());
+	   std::cout << "1TIME" << std::endl;
+	   //BSTNode<key_t, val_t>* tmpRightPar = (tmpNode->getRightChild())->getParent();
+	   tmpRight->setParent(tmpNode);
+	   std::cout << "2TIME" << std::endl;
+	   //tmpRight->setKey((runner->getRightChild())->getKey());
+	   //tmpRight->setValue((runner->getRightChild())->getValue());
 
-	   tmpRightPar->setKey(tmpNode->getKey());
-	   tmpRightPar->setValue(tmpNode->getValue());
+	   //tmpRightPar->setKey(tmpNode->getKey());
+	   //tmpRightPar->setValue(tmpNode->getValue());
+	   std::cout << "BEFORE SECOND TRANSPLANT" << std::endl;
 	   this->transplant(runner, tmpNode);
+	   std::cout << "AFTER SECOND TRANSPLANT" << std::endl;
 
-	   BSTNode<key_t, val_t>* tmpLeft = tmpNode->getLeftChild();
-	   BSTNode<key_t, val_t>* tmpLeftPar = (tmpNode->getLeftChild())->getParent();
-	   tmpLeft->setKey((runner->getLeftChild())->getKey());
-	   tmpLeft->setValue((runner->getLeftChild())->getValue());
+	   tmpNode->setLeftChild(runner->getLeftChild());
+	   //BSTNode<key_t, val_t>* tmpLeft = tmpNode->getLeftChild();
+	   tmpNode->getLeftChild()->setParent(tmpNode);
+	   //BSTNode<key_t, val_t>* tmpLeftPar = (tmpNode->getLeftChild())->getParent();
+	   //tmpLeft->setKey((runner->getLeftChild())->getKey());
+	   //tmpLeft->setValue((runner->getLeftChild())->getValue());
 
-	   tmpLeftPar->setKey(runner->getKey());
-	   tmpLeftPar->setValue(runner->getValue());
+	   //tmpLeftPar->setKey(runner->getKey());
+	   //tmpLeftPar->setValue(runner->getValue());
 	}
 }
-numItems = numItems - 1;
+this->numItems = this->numItems - 1;
+ std::cout << "BEFORE Final Return" << std::endl;
 return succ;
 }
