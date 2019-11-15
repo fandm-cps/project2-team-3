@@ -243,7 +243,30 @@ TEST_CASE("Testing BSTNode"){
 
      }
 
-	/**SECTION("TESTING REMOVAL OF A PARENT W TWO CHILDREN"){
+	/**SECTION("TESTING INSERT NEWNODE"){
+    BSTMultimap<int, int> m = BSTMultimap<int, int>();
+    //REQUIRE(m.isEmpty() == true);
+    //REQUIRE(m.getSize() == 0);
+
+    m.insert(5, 50);
+        m.insert(2, 20);
+	m.insert(7, 60);
+	m.insert(7, 50);
+	m.insert(7, 70);
+        m.insert(9, 90);
+	m.insert(4, 40);
+	BSTNode<int, int>* newNode = new BSTNode<int, int>(6, 60);
+	m.insertNode(newNode);
+	
+	cout << m.toString() << endl;
+	cout << "DONE" << endl;
+	//BSTForwardIterator<int, int> itt = m.findFirst(7);
+	REQUIRE(m.contains(6));
+		//cout << "ittVal: " << itt.getValue() << endl;
+	//delete newNode;
+	}**/
+
+	SECTION("TESTING REMOVAL OF A PARENT W TWO CHILDREN"){
 	  //REQUIRE(1 == 1);
        BSTMultimap<int, int> m = BSTMultimap<int, int>();
        //REQUIRE(m.contains(50) == false);
@@ -269,11 +292,19 @@ TEST_CASE("Testing BSTNode"){
 	
 	cout << "toString: " << m.toString() << endl;
 	cout << "val: " << first.getValue() << endl;
-	//BSTForwardIterator<int, int> succ = m.remove(first);
-	//cout << "succ val: " << succ.getValue() << endl;
-	//REQUIRE(succ.getValue() == 750);
+	cout << "size of multimap BEFORE remove: " << m.getSize() << endl;
+	BSTForwardIterator<int, int> succ = m.remove(first);
+	cout << "size of multimap AFTER remove: " << m.getSize() << endl;
+
+	cout << "succ val: " << succ.getValue() << endl;
+	cout << "succ key: " << succ.getKey() << endl;
+	cout << "is succ a sent? " << succ.isPastEnd() << endl;
+	REQUIRE(succ.getValue() == 750);
+	REQUIRE(succ.getKey() == 75);
 	std::cout << "AFTER REQUIRE" << std::endl;
-	}**/
+	}
+
+	
 }
 
      
