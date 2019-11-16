@@ -304,19 +304,21 @@ BSTForwardIterator<key_t, val_t> BSTMultimap<key_t, val_t>::findLast(const key_t
 template <class key_t, class val_t>
 void BSTMultimap<key_t, val_t>::transplant(BSTNode<key_t, val_t>* u, BSTNode<key_t, val_t>* v){
   std::cout << "uVal: " << u->getValue() << std::endl;
+  //std::cout << "vVal: " << v->getValue() << std::endl;
   BSTNode<key_t, val_t>* uPar = u->getParent();
-  bool tf = true;
+  /**bool tf = true;
   if (v != this->sentinel){
     tf = false;
-  }
-  std::cout << "is v = sent? " << tf << endl;
-  std::cout << "TF: " << (u->getParent())->getLeftChild()->getValue() << std::endl;
+    }**/
+  //std::cout << "is v = sent? " << tf << endl;
+  //std::cout << "TF: " << (u->getParent())->getLeftChild()->getValue() << std::endl;
   if (u->getParent() == sentinel){
     std::cout << "First if? " << std::endl;
-    (this->root)->setKey(v->getKey());
-    (this->root)->setValue(v->getValue());
+    this->root = v;
+    //(this->root)->setKey(v->getKey());
+    //(this->root)->setValue(v->getValue());
   }
-  else if (u == (u->getParent())->getLeftChild()){
+  else if (u == uPar->getLeftChild()){
     std::cout << "u == uPL" << std::endl;
     
     uPar->setLeftChild(v);
@@ -345,6 +347,9 @@ void BSTMultimap<key_t, val_t>::transplant(BSTNode<key_t, val_t>* u, BSTNode<key
     std::cout << "Here" << std::endl;
     //BSTNode<key_t, val_t>* vPar = v->getParent();
     v->setParent(uPar);
+    
+    //cout << "val of uPar: " << uPar->getValue() << endl;
+    //cout << "val of u: " << uPar->getValue() << endl;
     std::cout << "Here2" << std::endl;
    
   }
