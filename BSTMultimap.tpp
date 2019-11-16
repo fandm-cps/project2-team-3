@@ -264,7 +264,9 @@ BSTForwardIterator<key_t, val_t> BSTMultimap<key_t, val_t>::remove(const BSTForw
         tmpNode->setLeftChild(runner->getLeftChild());
         tmpNode->getLeftChild()->setParent(tmpNode);
     }
-    numItems--;
+    if(numItems > 0){
+        numItems--;
+    }
     succ.next();
     return succ;
 }
