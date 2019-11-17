@@ -18,8 +18,9 @@ class BSTMultimap
 
     public:
         BSTMultimap();
-   ~BSTMultimap();
+   virtual ~BSTMultimap();
         virtual void insert(const key_t& key, const val_t& val);
+  virtual void insertNode(BSTNode<key_t, val_t>* newNode);
         virtual int getSize();
         virtual bool isEmpty();
         virtual string toString();

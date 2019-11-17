@@ -14,17 +14,18 @@ class BSTNode
     public:
         BSTNode(const key_t& k, const val_t& v);
 
-        const val_t& getValue();
-        void setValue(const val_t&);
+  virtual ~BSTNode();
+        virtual const val_t& getValue();
+        virtual void setValue(const val_t&);
   
-        const key_t& getKey();
-        void setKey(const key_t&);
-        BSTNode* getLeftChild();
-        void setLeftChild(BSTNode* child);
-        BSTNode* getRightChild();
-        void setRightChild(BSTNode* child);
-        BSTNode* getParent();
-        void setParent(BSTNode* par);
+        virtual const key_t& getKey();
+        virtual void setKey(const key_t&);
+        virtual BSTNode* getLeftChild();
+        virtual void setLeftChild(BSTNode* child);
+        virtual BSTNode* getRightChild();
+        virtual void setRightChild(BSTNode* child);
+        virtual BSTNode* getParent();
+        virtual void setParent(BSTNode* par);
 
 };
 

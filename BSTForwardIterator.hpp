@@ -36,6 +36,10 @@ class BSTForwardIterator
    //Declares BSTMultimap as a friend class
    //(so it can access the protected member current)
    template <class k_t, class v_t> friend class BSTMultimap;
+
+  //Declares RBTMultimap as a friend class
+   //(so it can access the protected member current)
+   template <class k_t, class v_t> friend class RBTMultimap;
 };
 
 #include "BSTForwardIterator.tpp"

@@ -8,6 +8,11 @@ BSTNode<key_t, val_t>::BSTNode(const key_t& k, const val_t& v){
 }
 
 template <class key_t, class val_t>
+BSTNode<key_t, val_t>::~BSTNode(){
+
+}
+
+template <class key_t, class val_t>
 const val_t& BSTNode<key_t, val_t>::getValue(){
     return val;
 }

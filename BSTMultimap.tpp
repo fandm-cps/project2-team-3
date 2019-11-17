@@ -65,6 +65,10 @@ template <class key_t, class val_t>
 void BSTMultimap<key_t, val_t>::insert(const key_t& key, const val_t& val){
   BSTNode<key_t, val_t>* node = new BSTNode<key_t, val_t>(key, val);
 
+  //this->insertNode(node);
+
+  //delete node;
+
   node->setRightChild(sentinel);
   node->setLeftChild(sentinel);
     

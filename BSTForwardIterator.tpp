@@ -1,3 +1,4 @@
+#include <iostream>
 template <class key_t, class val_t>
 BSTForwardIterator<key_t, val_t>::BSTForwardIterator(BSTNode<key_t, val_t>* node, BSTNode<key_t, val_t>* sentinel){
 
@@ -8,29 +9,24 @@ this->sentinel = sentinel;
 
 template <class key_t, class val_t>
 void BSTForwardIterator<key_t, val_t>::next(){
+	if(current != sentinel){
+		if(current->getRightChild() != sentinel){
+			current = current->getRightChild();
+			while(current->getLeftChild() != sentinel){
+				current = current->getLeftChild();
+			}
+		}
+		else{
+			BSTNode<key_t, val_t>* tmp = current->getParent();
 
-if ((this->current)->getRightChild() != this->sentinel){
-     this->current = (this->current)->getRightChild();
-
-	if (this->current == this->sentinel){
-	//do nothing
-      }
-	if ((this->current)->getLeftChild() != sentinel){
-   	this->current = (this->current)->getLeftChild();
-       }
-}
-else{
-BSTNode<key_t, val_t>* tmp = (this->current)->getParent();
-while (tmp != this->sentinel && (this->current) == tmp->getRightChild())
-	{
-	this->current = tmp;
-	tmp = tmp->getParent();
+			while(tmp != sentinel && current == tmp->getRightChild()){
+				current = tmp;
+				tmp = tmp->getParent();
+			}
+			current = tmp;
+		}
 	}
-this->current = tmp;
 }
-}
-
-
 
 template <class key_t, class val_t>
 bool BSTForwardIterator<key_t, val_t>::isPastEnd() const{
@@ -45,7 +41,8 @@ return false;
 template <class key_t, class val_t>
 const key_t& BSTForwardIterator<key_t, val_t>::getKey() const{
 
-return (this->current)->getKey();
+  
+  return (this->current)->getKey();
 }
 
 template <class key_t, class val_t>

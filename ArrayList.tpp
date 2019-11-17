@@ -16,13 +16,12 @@ ArrayList<item_t>::ArrayList(const int capacity){
 
 template <class item_t>
 ArrayList<item_t>::~ArrayList(){
-    delete items;
+    delete[] items;
 }
 
 template <class item_t>
 void ArrayList<item_t>::pushBack(const item_t& item){
 
-    //std::cout << "size: "  << size << " cap " << capacity << std::endl;
     if(size+1 == capacity){
         item_t* newItems = new item_t[capacity*2];
         
@@ -30,7 +29,7 @@ void ArrayList<item_t>::pushBack(const item_t& item){
             (newItems)[i] = (items)[i];
         } 
 
-        //delete items;
+        delete[] items;
         items = newItems;
         capacity *= 2;
     }
@@ -61,7 +60,7 @@ void ArrayList<item_t>::pushFront(const item_t& item){
             (newItems)[i+1] = (items)[i];
         } 
 
-        delete items;
+        delete[] items;
         items = newItems;
         capacity *= 2;
     }
@@ -111,7 +110,7 @@ void ArrayList<item_t>::insert(int index, const item_t& item){
             (newItems)[i] = (items)[i];
         } 
 
-        delete items;
+        delete[] items;
         items = newItems;
         capacity *= 2;
     }
