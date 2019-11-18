@@ -146,32 +146,32 @@ TEST_CASE("Testing BSTMultimap"){
     SECTION("remove"){
         BSTMultimap<int, int> m = BSTMultimap<int, int>();
 
-        m.insert(5, 50);
+        m.insert(6, 60);
         m.insert(3, 30);
         m.insert(2, 20);
         m.insert(3, 31);
-        m.insert(7, 70);
-        m.insert(7, 71);
+        m.insert(8, 80);
+        m.insert(8, 81);
         m.insert(9, 90);
-        m.insert(5, 51);
+        m.insert(7, 70);
 
-        REQUIRE(m.toString() == "(5, 50)-(3, 30)-(7, 70)-(2, 20)-(3, 31)-(5, 51)-(7, 71)-(9, 90)-");
+        REQUIRE(m.toString() == "(6, 60)-(3, 30)-(8, 80)-(2, 20)-(3, 31)-(7, 70)-(8, 81)-(9, 90)-");
 
         BSTForwardIterator<int, int> i = m.findLast(9);
         m.remove(i);
-        REQUIRE(m.toString() == "(5, 50)-(3, 30)-(7, 70)-(2, 20)-(3, 31)-(5, 51)-(7, 71)-");
+        REQUIRE(m.toString() == "(6, 60)-(3, 30)-(8, 80)-(2, 20)-(3, 31)-(7, 70)-(8, 81)-");
 
         i = m.findFirst(3);
         m.remove(i);
-        REQUIRE(m.toString() == "(5, 50)-(3, 31)-(7, 70)-(2, 20)-(5, 51)-(7, 71)-");
+        REQUIRE(m.toString() == "(6, 60)-(3, 31)-(8, 80)-(2, 20)-(7, 70)-(8, 81)-");
 
         i = m.findFirst(3);
         m.remove(i);
-        REQUIRE(m.toString() == "(5, 50)-(2, 20)-(7, 70)-(5, 51)-(7, 71)-");
+        REQUIRE(m.toString() == "(6, 60)-(2, 20)-(8, 80)-(7, 70)-(8, 81)-");
 
-        i = m.findFirst(5);
+        i = m.findFirst(6);
         m.remove(i);
-        //REQUIRE(m.toString() == "(5, 51)-(2, 20)-(7, 70)-(7, 71)-");
+        REQUIRE(m.toString() == "(7, 70)-(2, 20)-(8, 80)-(8, 81)-");
 
     }
 }

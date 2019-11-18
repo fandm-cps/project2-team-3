@@ -16,9 +16,12 @@ class BSTMultimap
         BSTNode<key_t, val_t>* sentinel;
         int numItems;
 
+        virtual void insertNode(BSTNode<key_t, val_t>* newNode);
+
     public:
         BSTMultimap();
-        ~BSTMultimap();
+        virtual ~BSTMultimap();
+
         virtual void insert(const key_t& key, const val_t& val);
         virtual int getSize();
         virtual bool isEmpty();
