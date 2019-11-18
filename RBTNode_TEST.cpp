@@ -1,6 +1,6 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
-#include "BSTNode.hpp"
+//#include "BSTNode.hpp"
 #include "RBTNode.hpp"
 #include <iostream>
 
