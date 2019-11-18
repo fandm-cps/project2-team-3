@@ -1,6 +1,22 @@
 ///YOUR JOB: Implement the constructor right here
 
 template <class key_t, class val_t>
+RBTNode<key_t, val_t>::RBTNode(const key_t& k, const val_t& v, bool color){
+  //RBTNode<key_t, val_t> sentinel = this->root;
+  red = color;
+  //this->key = k;
+  //this->val = v;
+  //this->leftChild = 0;
+  //this->rightChild = 0;
+  //this->parent = 0;
+}
+
+//template <class key_t, class val_t>
+//RBTNode<key_t, val_t>::~RBTNode(){
+  
+//delete sentinel;
+//}
+template <class key_t, class val_t>
 RBTNode<key_t, val_t>* RBTNode<key_t, val_t>::getParent() const
 {
    return dynamic_cast<RBTNode<key_t, val_t>* >(BSTNode<key_t, val_t>::getParent());

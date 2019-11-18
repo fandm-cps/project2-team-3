@@ -281,6 +281,29 @@ TEST_CASE("Testing BSTNode"){
 	std::cout << "AFTER REQUIRE" << std::endl;
 	}
 
+	 SECTION("TESTING REMOVE"){
+       cout << "STARTING REG REMOVE OF THE ROOT METHOD" << endl;
+       BSTMultimap<int, int> m = BSTMultimap<int, int>();
+        m.insert(6, 60);
+        m.insert(2, 20);
+        m.insert(8, 80);
+        m.insert(8, 81);
+        m.insert(7, 70);
+        
+	BSTForwardIterator<int, int> sixty = m.findFirst(6);
+	//BSTForwardIterator<int, int> copy = min;
+	//copy.next();
+	//copy.next();
+	m.remove(sixty);
+	cout << m.toString() << endl;
+	//REQUIRE(copy.getValue() == 50);
+	//cout << "copy.getValue(): " << copy.getValue() << endl;
+	//BSTForwardIterator<int, int> copySucc = m.remove(copy);
+	//REQUIRE(copySucc.getValue() == 70);
+	//cout << "copySucc: " << copySucc.getValue() << endl;
+
+	 }
+
 
 	/**SECTION("TESTING INSERT NEWNODE"){
     BSTMultimap<int, int> m = BSTMultimap<int, int>();

@@ -26,6 +26,9 @@ schedulesim: schedulesim.cpp simulate.o Scheduler.o
 BSTNode_TEST: BSTNode_TEST.cpp BSTNode.hpp
 	$(CC) -o BSTNode BSTNode_TEST.cpp
 
+RBTNode_TEST: RBTNode_TEST.cpp RBTNode.hpp
+	$(CC) -o RBTNode RBTNode_TEST.cpp
+
 BSTMultimap_TEST: BSTMultimap_TEST.cpp BSTMultimap.hpp
 	$(CC) -o BSTMultimap BSTMultimap_TEST.cpp
 
@@ -43,6 +46,12 @@ coverage3: BSTNode_TEST.cpp BSTNode.hpp
 
 coverage4: BSTMultimap_TEST.cpp BSTMultimap.hpp
 	$(CC) $(CFLAGE) $(COVERAGE) BSTMultimap_TEST.cpp BSTMultimap.hpp
+
+coverage5: RBTNode_TEST.cpp RBTNode.hpp
+	$(CC) $(CFLAGE) $(COVERAGE) RBTNode_TEST.cpp RBTNode.hpp
+
+coverage6: RBTMultimap_TEST.cpp RBTMultimap.hpp
+	$(CC) $(CFLAGE) $(COVERAGE) RBTMultimap_TEST.cpp RBTMultimap.hpp
 
 clean:
 	rm ArrayList; rm RoundRobin; rm LinkedList; rm schedulesim; rm BSTNode; rm BSTMultimap; rm *.o;
