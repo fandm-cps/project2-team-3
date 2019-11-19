@@ -14,14 +14,16 @@ int main(int argc, char* argv[])
 
     RoundRobin myRob;
     FastRoundRobin fastRob;
+    CompletelyFair comp;
 
     ArrayList<Scheduler*> arr;
     arr.pushBack(&myRob);
     arr.pushBack(&fastRob);
-    string strArr [2] = {"RoundRobin", "FastRR"};
+    arr.pushBack(&comp);
+    string strArr [3] = {"RoundRobin", "FastRR", "CompletelyFair"};
 
     double* results;
-    for(int i = 0; i < 2; i++){
+    for(int i = 0; i < 3; i++){
         results = simulate(arr.getItem(i), numCPU, numIO, numCycles);
         cout << strArr[i] << " Overhead: " << results[0] << endl;
         cout << strArr[i] << " Avg CPUtime (CPUBound): " << results[1] << endl;

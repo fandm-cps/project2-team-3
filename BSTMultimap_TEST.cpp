@@ -22,7 +22,7 @@ TEST_CASE("Testing BSTMultimap"){
         m.insert(5, 50);
         m.insert(2, 20);
         REQUIRE(m.getSize() == 2);
-        REQUIRE(m.toString() == "(5, 50)-(2, 20)-");
+        REQUIRE(m.toString() == "(5)-(2)-");
         REQUIRE(m.contains(5) == true);
         REQUIRE(m.contains(7) == false);
         m.insert(7, 70);
@@ -31,10 +31,10 @@ TEST_CASE("Testing BSTMultimap"){
         REQUIRE(m.contains(5) == true);
         REQUIRE(m.contains(7) == true);
         REQUIRE(m.getSize() == 5);
-        REQUIRE(m.toString() == "(5, 50)-(2, 20)-(7, 70)-(4, 40)-(9, 90)-");
+        REQUIRE(m.toString() == "(5)-(2)-(7)-(4)-(9)-");
         m.insert(2, 20);
         m.insert(5, 50);
-        REQUIRE(m.toString() == "(5, 50)-(2, 20)-(7, 70)-(4, 40)-(5, 50)-(9, 90)-(2, 20)-");
+        REQUIRE(m.toString() == "(5)-(2)-(7)-(4)-(5)-(9)-(2)-");
     }
 
     SECTION("getMin, isPastEnd"){
@@ -75,7 +75,7 @@ TEST_CASE("Testing BSTMultimap"){
         i.next();
         REQUIRE(i.isPastEnd() == true);
         
-        REQUIRE(m.toString() == "(8, 80)-(3, 30)-(10, 100)-(1, 10)-(6, 60)-(14, 140)-(4, 40)-(7, 70)-(13, 130)-");
+        REQUIRE(m.toString() == "(8)-(3)-(10)-(1)-(6)-(14)-(4)-(7)-(13)-");
 
     }
 
@@ -155,23 +155,23 @@ TEST_CASE("Testing BSTMultimap"){
         m.insert(9, 90);
         m.insert(7, 70);
 
-        REQUIRE(m.toString() == "(6, 60)-(3, 30)-(8, 80)-(2, 20)-(3, 31)-(7, 70)-(8, 81)-(9, 90)-");
+        REQUIRE(m.toString() == "(6)-(3)-(8)-(2)-(3)-(7)-(8)-(9)-");
 
         BSTForwardIterator<int, int> i = m.findLast(9);
         m.remove(i);
-        REQUIRE(m.toString() == "(6, 60)-(3, 30)-(8, 80)-(2, 20)-(3, 31)-(7, 70)-(8, 81)-");
+        REQUIRE(m.toString() == "(6)-(3)-(8)-(2)-(3)-(7)-(8)-");
 
         i = m.findFirst(3);
         m.remove(i);
-        REQUIRE(m.toString() == "(6, 60)-(3, 31)-(8, 80)-(2, 20)-(7, 70)-(8, 81)-");
+        REQUIRE(m.toString() == "(6)-(3)-(8)-(2)-(7)-(8)-");
 
         i = m.findFirst(3);
         m.remove(i);
-        REQUIRE(m.toString() == "(6, 60)-(2, 20)-(8, 80)-(7, 70)-(8, 81)-");
+        REQUIRE(m.toString() == "(6)-(2)-(8)-(7)-(8)-");
 
         i = m.findFirst(6);
         m.remove(i);
-        REQUIRE(m.toString() == "(7, 70)-(2, 20)-(8, 80)-(8, 81)-");
+        REQUIRE(m.toString() == "(7)-(2)-(8)-(8)-");
 
     }
 }

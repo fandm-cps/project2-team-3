@@ -65,15 +65,9 @@ bool BSTMultimap<key_t, val_t>::contains(const key_t& key) const{
 
 template <class key_t, class val_t>
 void BSTMultimap<key_t, val_t>::insertNode(BSTNode<key_t, val_t>* newNode){
-
-}
-
-template <class key_t, class val_t>
-void BSTMultimap<key_t, val_t>::insert(const key_t& key, const val_t& val){
-    BSTNode<key_t, val_t>* node = new BSTNode<key_t, val_t>(key, val);
-    
-    node->setRightChild(sentinel);
-    node->setLeftChild(sentinel);
+       
+    newNode->setRightChild(sentinel);
+    newNode->setLeftChild(sentinel);
 
     BSTNode<key_t, val_t>* cur;
     BSTNode<key_t, val_t>* par;
@@ -84,7 +78,7 @@ void BSTMultimap<key_t, val_t>::insert(const key_t& key, const val_t& val){
     while(cur != sentinel){
         par = cur;
 
-        if(key < cur->getKey()){
+        if(newNode->getKey() < cur->getKey()){
             cur = cur->getLeftChild();
         }
         else{
@@ -92,19 +86,26 @@ void BSTMultimap<key_t, val_t>::insert(const key_t& key, const val_t& val){
         }
     }
 
-    node->setParent(par);
+    newNode->setParent(par);
     
     if(par == sentinel){
-        root = node;
+        root = newNode;
     }
-    else if(key < par->getKey()){
-        par->setLeftChild(node);
+    else if(newNode->getKey() < par->getKey()){
+        par->setLeftChild(newNode);
     }
     else{
-        par->setRightChild(node);
+        par->setRightChild(newNode);
     }
     
     numItems++;
+}
+
+template <class key_t, class val_t>
+void BSTMultimap<key_t, val_t>::insert(const key_t& key, const val_t& val){
+    BSTNode<key_t, val_t>* node = new BSTNode<key_t, val_t>(key, val);
+
+    insertNode(node);
 }
 
 template <class key_t, class val_t>
@@ -127,7 +128,7 @@ string BSTMultimap<key_t, val_t>::toString(){
     while(!q.empty()){
         cur = q.front();
         q.pop();
-        outStr += "(" + to_string(cur->getKey()) + ", " + to_string(cur->getValue()) + ")-";
+        outStr += "(" + to_string(cur->getKey()) + ")-";
         if(cur->getLeftChild() != sentinel){
             q.push(cur->getLeftChild());
         }
