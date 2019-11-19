@@ -1,4 +1,30 @@
 template <class key_t, class val_t>
+RBTMultimap<key_t, val_t>::RBTMultimap(){
+	BSTNode<key_t, val_t>* node = new RBTNode<key_t, val_t>(0,0,false);
+	
+	this->sentinel = node;
+	this->root = this->sentinel;
+	
+}
+
+template <class key_t, class val_t>
+RBTMultimap<key_t, val_t>::~RBTMultimap(){
+  	this->clear();
+  	delete this->sentinel;
+}
+
+void RBTMultimap<key_t, val_t>::insert(const key_t& key, const val_t& value){
+	BSTNode<key_t, val_t>* node = new RBTNode<key_t, val_t>(key, value, true);
+
+	this->insertNode(node);
+	insertFixup(node);
+}
+
+void RBTMultimap<key_t, val_t>::insertFixup(RBTNode<key_t, val_t>* insertedNode){
+	
+}
+
+template <class key_t, class val_t>
 void RBTMultimap<key_t, val_t>::printDOT(std::string filename)
 {
    using namespace std;
