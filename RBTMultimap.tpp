@@ -4,8 +4,8 @@ RBTMultimap<key_t, val_t>::RBTMultimap():BSTMultimap<key_t, val_t>()
   //key_t k = this->getKey();
   //val_t v = this->getValue();
   //this->sentinel =
-    BSTNode<key_t, val_t> myNode = RBTNode<key_t, val_t>(0, 0, true);
-  this->sentinel = &myNode;
+    BSTNode<key_t, val_t>* myNode = new RBTNode<key_t, val_t>(0, 0, true);
+  this->sentinel = myNode;
   this->root = this->sentinel;
 }
 

@@ -32,8 +32,8 @@ RBTNode_TEST: RBTNode_TEST.cpp RBTNode.hpp
 BSTMultimap_TEST: BSTMultimap_TEST.cpp BSTMultimap.hpp
 	$(CC) -o BSTMultimap BSTMultimap_TEST.cpp
 
-RBTMultimap_TEST: RBTMultimap_TEST.cpp RBTMultimap.hpp
-	$(CC) -o RBTMultimap RBTMultimap_TEST.cpp
+RBTMultimap_TEST: RBTMultimap_TEST.cpp RBTMultimap.hpp BSTForwardIterator.hpp RBTNode.hpp 
+	$(CC) -o RBTMultimap RBTMultimap_TEST.cpp 
 
 coverage: ArrayList_TEST.cpp ArrayList.hpp
 	$(CC) $(CFLAGE) $(COVERAGE) ArrayList_TEST.cpp ArrayList.hpp

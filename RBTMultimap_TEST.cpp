@@ -1,6 +1,7 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
-//#include "BSTNode.hpp"
+#include "RBTNode.hpp"
+#include "BSTForwardIterator.hpp"
 #include "RBTMultimap.hpp"
 #include <iostream>
 
