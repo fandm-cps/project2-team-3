@@ -4,7 +4,6 @@ RBTMultimap<key_t, val_t>::RBTMultimap(){
 	
 	this->sentinel = node;
 	this->root = this->sentinel;
-	
 }
 
 template <class key_t, class val_t>
@@ -13,15 +12,62 @@ RBTMultimap<key_t, val_t>::~RBTMultimap(){
   	delete this->sentinel;
 }
 
+template <class key_t, class val_t>
 void RBTMultimap<key_t, val_t>::insert(const key_t& key, const val_t& value){
-	BSTNode<key_t, val_t>* node = new RBTNode<key_t, val_t>(key, value, true);
+	RBTNode<key_t, val_t>* node = new RBTNode<key_t, val_t>(key, value, true);
 
 	this->insertNode(node);
 	insertFixup(node);
 }
 
+template <class key_t, class val_t>
 void RBTMultimap<key_t, val_t>::insertFixup(RBTNode<key_t, val_t>* insertedNode){
 	
+}
+
+// Cormen p. 313 DOUBLE CHECK
+template <class key_t, class val_t>
+void RBTMultimap<key_t, val_t>::rotateLeft(BSTNode<key_t, val_t>* node){
+	RBTNode<key_t, val_t>* other = node->getRightChild();
+	node->setRightChild(other->getLeftChild());
+
+	if(other->getLeftChild() != this->sentinel){
+		other->getLeftChild()->setParent(node);
+	}
+	other->setParent(node->getParent());
+
+	if(node->getParent() == this->sentinel){
+		this->root = other;
+	}
+	else if(node == node->getParent()->getLeftChild()){
+		node->getParent()->setLeftChild(other);
+	}
+	else{
+		node->getParent()->setRightChild(other);
+	}
+	other->setRightChild(node);
+	node->setParent(other);
+
+}
+
+template <class key_t, class val_t>
+void RBTMultimap<key_t, val_t>::rotateRight(BSTNode<key_t, val_t>* node){
+
+}
+
+template <class key_t, class val_t>
+void RBTMultimap<key_t, val_t>::deleteFixup(RBTNode<key_t, val_t>* replacementNode){
+
+}
+
+template <class key_t, class val_t>
+void RBTMultimap<key_t, val_t>::transplant(BSTNode<key_t, val_t>* nodeToReplace, BSTNode<key_t, val_t>* replacementNode){
+
+}
+
+template <class key_t, class val_t>
+BSTForwardIterator<key_t, val_t> RBTMultimap<key_t, val_t>::remove(const BSTForwardIterator<key_t, val_t>& pos){
+
 }
 
 template <class key_t, class val_t>

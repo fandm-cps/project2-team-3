@@ -29,8 +29,8 @@ BSTNode_TEST: BSTNode_TEST.cpp BSTNode.hpp
 BSTMultimap_TEST: BSTMultimap_TEST.cpp BSTMultimap.hpp
 	$(CC) -o BSTMultimap BSTMultimap_TEST.cpp
 
-RBTMultimap_TEST: RBTMultimap_TEST.cpp RBTMultimap.hpp
-	$(CC) -o RBTMultimap RBTMultimap_TEST.cpp
+RBTMultimap_TEST: RBTMultimap_TEST.cpp RBTMultimap.hpp BSTMultimap.hpp RBTNode.hpp
+	$(CC) -o RBTMultimap RBTMultimap_TEST.cpp 
 
 CompletelyFair_TEST: CompletelyFair_TEST.cpp Scheduler.o
 	$(CC) $(COVERAGE) -o CompletelyFair CompletelyFair_TEST.cpp Scheduler.o Process.cpp
@@ -54,7 +54,10 @@ coverage4: BSTMultimap_TEST.cpp BSTMultimap.hpp
 	$(CC) $(CFLAGE) $(COVERAGE) BSTMultimap_TEST.cpp BSTMultimap.hpp
 
 coverage5: CompletelyFair_TEST.cpp Scheduler.hpp Scheduler.o
-	$(CC) $(CFLAGE) $(COVERAGE) CompletelyFair_TEST.cpp Scheduler.o Process.cpp 
+	$(CC) $(CFLAGE) $(COVERAGE) CompletelyFair_TEST.cpp Scheduler.o Process.cpp
+
+coverage6: RBTMultimap_TEST.cpp RBTMultimap.hpp BSTMultimap.hpp RBTNode.hpp
+	$(CC) $(CFLAGE) $(COVERAGE) RBTMultimap_TEST.cpp RBTMultimap.hpp
 
 clean:
 	rm ArrayList; rm RoundRobin; rm LinkedList; rm schedulesim; rm BSTNode; rm BSTMultimap; rm CompletelyFair; rm RBTNode; rm RBTMultimap; rm *.o; rm *.hpp.gch;
