@@ -9,7 +9,7 @@ using namespace std;
 TEST_CASE("Testing RBTNode"){
     SECTION("Constructor"){
       RBTMultimap<char, int> a = RBTMultimap<char, int>();
-      RBTMultimap<double, double> b = RBTMultimap<double, double>();
-      RBTMultimap<int, char> c = RBTMultimap<int, char> ();
+      //RBTMultimap<double, double> b = RBTMultimap<double, double>();
+      //RBTMultimap<int, char> c = RBTMultimap<int, char> ();
     }
 }
