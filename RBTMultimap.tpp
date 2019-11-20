@@ -25,10 +25,10 @@ void RBTMultimap<key_t, val_t>::insertFixup(RBTNode<key_t, val_t>* insertedNode)
 	
 }
 
-// Cormen p. 313 DOUBLE CHECK
+// Cormen p. 313
 template <class key_t, class val_t>
 void RBTMultimap<key_t, val_t>::rotateLeft(BSTNode<key_t, val_t>* node){
-	RBTNode<key_t, val_t>* other = node->getRightChild();
+	BSTNode<key_t, val_t>* other = node->getRightChild();
 	node->setRightChild(other->getLeftChild());
 
 	if(other->getLeftChild() != this->sentinel){
@@ -45,14 +45,32 @@ void RBTMultimap<key_t, val_t>::rotateLeft(BSTNode<key_t, val_t>* node){
 	else{
 		node->getParent()->setRightChild(other);
 	}
-	other->setRightChild(node);
+	other->setLeftChild(node);
 	node->setParent(other);
-
 }
 
+//RIGHT-ROTATE is symmetric: exchange left and right everywhere
 template <class key_t, class val_t>
 void RBTMultimap<key_t, val_t>::rotateRight(BSTNode<key_t, val_t>* node){
+	BSTNode<key_t, val_t>* other = node->getLeftChild();
+	node->setLeftChild(other->getRightChild());
 
+	if(other->getRightChild() != this->sentinel){
+		other->getRightChild()->setParent(node);
+	}
+	other->setParent(node->getParent());
+
+	if(node->getParent() == this->sentinel){
+		this->root = other;
+	}
+	else if(node == node->getParent()->getRightChild()){
+		node->getParent()->setRightChild(other);
+	}
+	else{
+		node->getParent()->setLeftChild(other);
+	}
+	other->setRightChild(node);
+	node->setParent(other);
 }
 
 template <class key_t, class val_t>
