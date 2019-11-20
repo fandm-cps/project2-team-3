@@ -52,6 +52,7 @@ FastRoundRobin::FastRoundRobin()
 
 CompletelyFair::CompletelyFair(){
     procTree = new BSTMultimap<int, Process*>();
+    std::cout << "IN CONSTRUCTOR" << std::endl;
 }
 
 CompletelyFair::~CompletelyFair(){

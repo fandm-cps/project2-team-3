@@ -1,6 +1,6 @@
 CC = g++ -g -std=c++11
 CFLAGS = -Wall
-COVERAGE = --coverage
+COVERAGE = 
 C11 = -std=c++11
 
 all: ArrayList_TEST LinkedList_TEST RoundRobin_TEST schedulesim BSTNode_TEST BSTMultimap_TEST CompletelyFair_TEST RBTNode_TEST RBTMultimap_TEST
@@ -12,13 +12,13 @@ LinkedList_TEST: LinkedList_TEST.cpp LinkedList.hpp
 	$(CC) -o LinkedList LinkedList_TEST.cpp
 
 Scheduler.o: Scheduler.hpp Scheduler.cpp 
-	$(CC) $(COVERAGE) -c Scheduler.cpp
+	$(CC) -c Scheduler.cpp
 
 RoundRobin_TEST: RoundRobin_TEST.cpp Scheduler.o
 	$(CC) $(COVERAGE) -o RoundRobin RoundRobin_TEST.cpp Scheduler.o Process.cpp
 
 simulate.o: simulate.cpp simulate.hpp ArrayList.hpp Process.hpp Process.cpp
-	$(CC) $(COVERAGE) -c simulate.cpp Scheduler.cpp Scheduler.hpp Process.cpp Process.hpp
+	$(CC) -c simulate.cpp Scheduler.cpp Scheduler.hpp Process.cpp Process.hpp
 
 schedulesim: schedulesim.cpp simulate.o Scheduler.o
 	$(CC) $(CFLAGE) $(COVERAGE) -o schedulesim schedulesim.cpp simulate.o Scheduler.o Process.cpp
@@ -33,7 +33,7 @@ RBTMultimap_TEST: RBTMultimap_TEST.cpp RBTMultimap.hpp BSTMultimap.hpp RBTNode.h
 	$(CC) -o RBTMultimap RBTMultimap_TEST.cpp 
 
 CompletelyFair_TEST: CompletelyFair_TEST.cpp Scheduler.o
-	$(CC) $(COVERAGE) -o CompletelyFair CompletelyFair_TEST.cpp Scheduler.o Process.cpp
+	$(CC) -o CompletelyFair CompletelyFair_TEST.cpp Scheduler.o Process.cpp
 
 RBTNode_TEST: RBTNode_TEST.cpp RBTNode.hpp
 	$(CC) -o RBTNode RBTNode_TEST.cpp
@@ -60,4 +60,4 @@ coverage6: RBTMultimap_TEST.cpp RBTMultimap.hpp BSTMultimap.hpp RBTNode.hpp
 	$(CC) $(CFLAGE) $(COVERAGE) RBTMultimap_TEST.cpp RBTMultimap.hpp
 
 clean:
-	rm ArrayList; rm RoundRobin; rm LinkedList; rm schedulesim; rm BSTNode; rm BSTMultimap; rm CompletelyFair; rm RBTNode; rm RBTMultimap; rm *.o; rm *.hpp.gch;
+	rm ArrayList; rm RoundRobin; rm LinkedList; rm schedulesim; rm BSTNode; rm BSTMultimap; rm CompletelyFair; rm RBTNode; rm RBTMultimap; rm *.o; rm *.hpp.gch; rm *.gcda; rm *.gcno;

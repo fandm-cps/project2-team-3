@@ -15,7 +15,10 @@ BSTMultimap<key_t, val_t>::~BSTMultimap(){
 
 template <class key_t, class val_t>
 void BSTMultimap<key_t, val_t>::clear(){
-    if(root != sentinel){
+  //std::cout << "AT BEGINNING OF CLEAR" << std::endl;
+  if (!this->isEmpty()){
+  if(root != sentinel){
+    //std::cout << "IN IF STATEMENT" << std::endl;
         queue<BSTNode<key_t, val_t>*> q;
         q.push(root);
         BSTNode<key_t, val_t>* cur; 
@@ -35,6 +38,8 @@ void BSTMultimap<key_t, val_t>::clear(){
         root = sentinel;
         numItems = 0;
     }
+  //std::cout << "DONE CLEAR" << std::endl;
+  }
 }
 
 template <class key_t, class val_t>
@@ -115,7 +120,7 @@ int BSTMultimap<key_t, val_t>::getSize(){
 
 template <class key_t, class val_t>
 bool BSTMultimap<key_t, val_t>::isEmpty(){
-    return (numItems == 0)? true : false;
+    return (root == sentinel)? true : false;
 }
 
 template <class key_t, class val_t>

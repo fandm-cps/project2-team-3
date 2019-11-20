@@ -65,7 +65,7 @@ class CompletelyFair : public Scheduler
 class FastCompletelyFair : public CompletelyFair
 {
 protected:
-  RBTMultimap<int, Process*>* procTree;
+  //RBTMultimap<int, Process*>* procTree;
 
 public:
   FastCompletelyFair();

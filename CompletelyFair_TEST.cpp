@@ -8,7 +8,7 @@ using namespace std;
 
 TEST_CASE("Testing CompletelyFair Scheduler"){
     
-    SECTION("CPU Processes"){
+  SECTION("CPU Processes"){
         CompletelyFair a;
         CPUBoundProcess p1(1);
 
@@ -23,13 +23,22 @@ TEST_CASE("Testing CompletelyFair Scheduler"){
 	    b.addProcess(&p1);
 	    REQUIRE(p1.isBlocked(0) == false);
         REQUIRE(b.popNext(20)->getID() == 1);
-    }
+	}
 
-    SECTION("CPU Processes"){
-        FastCompletelyFair a;
+    SECTION("CPU Processes FAST"){
+        FastCompletelyFair c;
         CPUBoundProcess p1(1);
 
-        a.addProcess(&p1);
-        REQUIRE(a.popNext(0)->getID() == 1);
+        c.addProcess(&p1);
+        REQUIRE(c.popNext(0)->getID() == 1);
    }
+
+    SECTION("I/O Processes FAST"){
+        FastCompletelyFair d;
+        CPUBoundProcess p1(1);
+
+	    d.addProcess(&p1);
+	    REQUIRE(p1.isBlocked(0) == false);
+        REQUIRE(d.popNext(20)->getID() == 1);
+	}
 }
