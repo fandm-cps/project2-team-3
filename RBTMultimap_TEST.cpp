@@ -56,12 +56,36 @@ TEST_CASE("Testing RBTNode"){
     m.insert(9, 90);
     m.insert(7, 70);
     m.insert(6, 60);
+    m.insert(10, 100);
+    m.insert(12, 120);
+    m.insert(13, 130);
+    m.insert(20, 2000);
     BSTForwardIterator<int, int> itt = m.findFirst(3);
     m.remove(itt);
     BSTForwardIterator<int, int> itt2 = m.findFirst(8);
     m.remove(itt2);
     BSTForwardIterator<int, int> itt3 = m.findFirst(2);
     m.remove(itt3);
+    BSTForwardIterator<int, int> itt4 = m.findFirst(5);
+    m.remove(itt4);
+    BSTForwardIterator<int, int> itt5 = m.findFirst(11);
+    m.remove(itt5);
+    BSTForwardIterator<int, int> itt6 = m.findFirst(14);
+    m.remove(itt6);
+    BSTForwardIterator<int, int> itt7 = m.findFirst(9);
+    m.remove(itt7);
+    BSTForwardIterator<int, int> itt8 = m.findFirst(7);
+    m.remove(itt8);
+    BSTForwardIterator<int, int> itt9 = m.findFirst(6);
+    m.remove(itt9);
+    BSTForwardIterator<int, int> itt10 = m.findFirst(10);
+    m.remove(itt10);
+    BSTForwardIterator<int, int> itt11 = m.findFirst(12);
+    m.remove(itt11);
+    BSTForwardIterator<int, int> itt13 = m.findFirst(13);
+    m.remove(itt13);
+    BSTForwardIterator<int, int> itt14 = m.findFirst(20);
+    m.remove(itt14);
     m.printDOT("rbtree2.dot");
   }
 
