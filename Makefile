@@ -1,6 +1,6 @@
 CC = g++ -g -std=c++11
 CFLAGS = -Wall
-COVERAGE = 
+COVERAGE = --coverage
 C11 = -std=c++11
 
 all: ArrayList_TEST LinkedList_TEST RoundRobin_TEST schedulesim BSTNode_TEST BSTMultimap_TEST CompletelyFair_TEST RBTNode_TEST RBTMultimap_TEST
