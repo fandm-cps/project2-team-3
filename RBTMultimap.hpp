@@ -15,7 +15,7 @@ using namespace std;
 template <class key_t, class val_t>
 class RBTMultimap : public BSTMultimap<key_t, val_t>
 {
-protected:
+  protected:
    //Performs the rotate left operation
    //(assumes node has a right child)
    virtual void rotateLeft(BSTNode<key_t, val_t>* node);
@@ -38,10 +38,10 @@ protected:
    //Assumes nodeToReplace is a real node (not the sentinel)
    virtual void transplant(BSTNode<key_t, val_t>* nodeToReplace, BSTNode<key_t, val_t>* replacementNode);
 
-  
-public:
-  RBTMultimap();
- virtual ~RBTMultimap();
+  public:
+   //Creates an empty red-black tree
+   RBTMultimap();
+   virtual ~RBTMultimap();
 
    //Inserts (key, value) into the multimap
    virtual void insert(const key_t& key, const val_t& value);

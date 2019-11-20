@@ -1,0 +1,32 @@
+digraph RBTMultimap {
+	 node1 [label="nil", style=filled, color=grey, fontcolor=white];
+	 node2 -> node1 [constraint=false, tailport=n, headport=s, color=grey];
+	 node2 [label="k: 5", style=filled, color=black, fontcolor=white];
+	 node2 -> node3 [tailport=sw];
+	 node3 -> node4 [tailport=n, color=orange];
+	 node2 -> node5 [tailport=se, dir=both];
+	 node3 [label="k: 2", style=filled, color=red];
+	 node3 -> node1 [tailport=sw, color=grey];
+	 node3 -> node1 [tailport=se, color=grey];
+	 node5 [label="k: 8", style=filled, color=red];
+	 node5 -> node6 [tailport=sw, dir=both];
+	 node5 -> node7 [tailport=se, dir=both];
+	 node6 [label="k: 7", style=filled, color=black, fontcolor=white];
+	 node6 -> node8 [tailport=sw, dir=both];
+	 node6 -> node9 [tailport=se, dir=both];
+	 node7 [label="k: 11", style=filled, color=black, fontcolor=white];
+	 node7 -> node10 [tailport=sw, dir=both];
+	 node7 -> node11 [tailport=se, dir=both];
+	 node8 [label="k: 6", style=filled, color=red];
+	 node8 -> node1 [tailport=sw, color=grey];
+	 node8 -> node1 [tailport=se, color=grey];
+	 node9 [label="k: 7", style=filled, color=red];
+	 node9 -> node1 [tailport=sw, color=grey];
+	 node9 -> node1 [tailport=se, color=grey];
+	 node10 [label="k: 9", style=filled, color=red];
+	 node10 -> node1 [tailport=sw, color=grey];
+	 node10 -> node1 [tailport=se, color=grey];
+	 node11 [label="k: 14", style=filled, color=red];
+	 node11 -> node1 [tailport=sw, color=grey];
+	 node11 -> node1 [tailport=se, color=grey];
+}
