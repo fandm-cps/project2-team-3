@@ -134,9 +134,74 @@ void RBTMultimap<key_t, val_t>::rotateRight(BSTNode<key_t, val_t>* node){
 	node->setParent(other);
 }
 
+#define RPARENT replacementNode->getParent()
+
 template <class key_t, class val_t>
 void RBTMultimap<key_t, val_t>::deleteFixup(RBTNode<key_t, val_t>* replacementNode){
+	
+	while(replacementNode != this->root && !replacementNode->isRed()){
+		if(replacementNode == RPARENT->getLeftChild()){
+			RBTNode<key_t, val_t>* sibling = RPARENT->getRightChild();
 
+			if(sibling->isRed()){
+				sibling->setIsRed(false);
+				RPARENT->setIsRed(true);
+				rotateLeft(RPARENT);
+				sibling = RPARENT->getRightChild();
+			}
+
+			if(!sibling->getLeftChild()->isRed() && !sibling->getRightChild()->isRed()){
+				sibling->setIsRed(true);
+				replacementNode = RPARENT;
+			}
+			else{
+				if(!sibling->getRightChild()->isRed()){
+					sibling->getLeftChild()->setIsRed(false);
+					sibling->setIsRed(true);
+					rotateRight(sibling);
+					sibling = RPARENT->getRightChild();
+				}
+
+				sibling->setIsRed(RPARENT->isRed());
+				RPARENT->setIsRed(false);
+				sibling->getRightChild()->setIsRed(false);
+				rotateLeft(RPARENT);
+				RBTNode<key_t, val_t>* tmp  = dynamic_cast<RBTNode<key_t, val_t>*>(this->root);
+				replacementNode = tmp;
+			}
+		}
+		else{
+			RBTNode<key_t, val_t>* sibling = RPARENT->getLeftChild();
+
+			if(sibling->isRed()){
+				sibling->setIsRed(false);
+				RPARENT->setIsRed(true);
+				rotateRight(RPARENT);
+				sibling = RPARENT->getLeftChild();
+			}
+
+			if(!sibling->getRightChild()->isRed() && !sibling->getLeftChild()->isRed()){
+				sibling->setIsRed(true);
+				replacementNode = RPARENT;
+			}
+			else{
+				if(!sibling->getLeftChild()->isRed()){
+					sibling->getRightChild()->setIsRed(false);
+					sibling->setIsRed(true);
+					rotateLeft(sibling);
+					sibling = RPARENT->getLeftChild();
+				}
+
+				sibling->setIsRed(RPARENT->isRed());
+				RPARENT->setIsRed(false);
+				sibling->getLeftChild()->setIsRed(false);
+				rotateRight(RPARENT);
+				RBTNode<key_t, val_t>* tmp  = dynamic_cast<RBTNode<key_t, val_t>*>(this->root);
+				replacementNode = tmp;
+			}
+		}
+	}
+	replacementNode->setIsRed(false);
 }
 
 template <class key_t, class val_t>
