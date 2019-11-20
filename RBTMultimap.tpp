@@ -213,29 +213,29 @@ void RBTMultimap<key_t, val_t>::transplant(BSTNode<key_t, val_t>* nodeToReplace,
   }
   else{
     nodeToReplace->getParent()->setRightChild(replacementNode);
-    replacementNode->setParent(nodeToReplace->getParent());
-  }
+    }
+  replacementNode->setParent(nodeToReplace->getParent());
 }
 
 template <class key_t, class val_t>
 BSTForwardIterator<key_t, val_t> RBTMultimap<key_t, val_t>::remove(const BSTForwardIterator<key_t, val_t>& pos){
 
-  RBTNode<key_t, val_t>* rbtSent = dynamic_cast<RBTNode<key_t, val_t>* >(pos.sentinel);
+  //RBTNode<key_t, val_t>* rbtSent = dynamic_cast<RBTNode<key_t, val_t>* >(pos.sentinel);
   //this is basically z as a BSTNode
-  BSTNode<key_t, val_t>* bstOG = pos.current;
+  //BSTNode<key_t, val_t>* bstOG = pos.current;
   
   //this is basically z
   RBTNode<key_t, val_t>* og = dynamic_cast<RBTNode<key_t, val_t>* >(pos.current);
   //this is basically y
-  BSTNode<key_t, val_t>* bstRunner = pos.current;
-  RBTNode<key_t, val_t>* runner = dynamic_cast<RBTNode<key_t, val_t>* >(pos.current);
-  BSTForwardIterator<key_t, val_t> suc = pos;
+  //BSTNode<key_t, val_t>* bstRunner = pos.current;
+  RBTNode<key_t, val_t>* runner = og;
+  //BSTForwardIterator<key_t, val_t> suc = pos;
 
   bool runnerOGColor = runner->isRed();
-  BSTNode<key_t, val_t>* bstTmpNode = this->sentinel;
+  //BSTNode<key_t, val_t>* bstTmpNode = this->sentinel;
   RBTNode<key_t, val_t>* tmpNode = dynamic_cast<RBTNode<key_t, val_t>* >(this->sentinel);
   RBTNode<key_t, val_t>* minNode = dynamic_cast<RBTNode<key_t, val_t>* >(this->sentinel);
-  BSTNode<key_t, val_t>* bstMinNode = this->sentinel;
+  //BSTNode<key_t, val_t>* bstMinNode = this->sentinel;
   
 
   if (og->getLeftChild() == this->sentinel){
@@ -266,17 +266,19 @@ BSTForwardIterator<key_t, val_t> RBTMultimap<key_t, val_t>::remove(const BSTForw
       this->transplant(runner, runner->getRightChild());
       runner->setRightChild(og->getRightChild());
       runner->getRightChild()->setParent(runner);
-      this->transplant(og, runner);
-      runner->setLeftChild(og->getLeftChild());
-      runner->getLeftChild()->setParent(runner);
-      runner->setIsRed(og->isRed());
-      if (runnerOGColor == false){
-	this->deleteFixup(tmpNode);
-	//std::cout << "runner OG color is black!!" << std::endl;
-      }
-      
     }
+    this->transplant(og, runner);
+    runner->setLeftChild(og->getLeftChild());
+    runner->getLeftChild()->setParent(runner);
+    runner->setIsRed(og->isRed());
   }
+  if (runnerOGColor == false){
+    this->deleteFixup(tmpNode);
+	//std::cout << "runner OG color is black!!" << std::endl;
+  }
+      
+    
+  
 
 }
 

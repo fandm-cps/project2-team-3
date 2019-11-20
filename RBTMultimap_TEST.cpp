@@ -47,18 +47,21 @@ TEST_CASE("Testing RBTNode"){
   SECTION("TESTING REMOVE"){
     RBTMultimap<int, int> m = RBTMultimap<int, int>();
 
-    m.insert(8, 80);
     m.insert(5, 50);
     m.insert(3, 30);
-    m.insert(7, 70);
     m.insert(11, 110);
+    m.insert(2, 20);
+    m.insert(8, 80);
     m.insert(14, 140);
     m.insert(9, 90);
     m.insert(7, 70);
     m.insert(6, 60);
-    m.insert(2, 20);
     BSTForwardIterator<int, int> itt = m.findFirst(3);
     m.remove(itt);
+    BSTForwardIterator<int, int> itt2 = m.findFirst(8);
+    m.remove(itt2);
+    BSTForwardIterator<int, int> itt3 = m.findFirst(2);
+    m.remove(itt3);
     m.printDOT("rbtree2.dot");
   }
 
