@@ -83,3 +83,8 @@ Process* CompletelyFair::popNext(int curCycle){
 
     return i.getValue();
 }
+
+FastCompletelyFair::FastCompletelyFair(){
+  delete procTree;
+  procTree = new RBTMultimap<int, Process*>();
+}

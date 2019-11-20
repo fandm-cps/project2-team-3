@@ -24,4 +24,22 @@ TEST_CASE("Testing CompletelyFair Scheduler"){
 	    REQUIRE(p1.isBlocked(0) == false);
         REQUIRE(b.popNext(20)->getID() == 1);
     }
+
+    SECTION("FastCF CPU Processes"){
+        FastCompletelyFair a;
+        CPUBoundProcess p1(1);
+
+        a.addProcess(&p1);
+        REQUIRE(a.popNext(0)->getID() == 1);
+    }
+
+    SECTION("FastCF I/O Processes"){
+        FastCompletelyFair b;
+        CPUBoundProcess p1(1);
+
+	    b.addProcess(&p1);
+	    REQUIRE(p1.isBlocked(0) == false);
+        REQUIRE(b.popNext(20)->getID() == 1);
+    }
+
 }

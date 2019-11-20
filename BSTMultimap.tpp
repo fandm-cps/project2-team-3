@@ -15,7 +15,9 @@ BSTMultimap<key_t, val_t>::~BSTMultimap(){
 
 template <class key_t, class val_t>
 void BSTMultimap<key_t, val_t>::clear(){
+
     if(root != sentinel){
+        
         queue<BSTNode<key_t, val_t>*> q;
         q.push(root);
         BSTNode<key_t, val_t>* cur; 
@@ -34,7 +36,9 @@ void BSTMultimap<key_t, val_t>::clear(){
 
         root = sentinel;
         numItems = 0;
+        
     }
+    
 }
 
 template <class key_t, class val_t>
