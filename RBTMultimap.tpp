@@ -20,9 +20,70 @@ void RBTMultimap<key_t, val_t>::insert(const key_t& key, const val_t& value){
 	insertFixup(node);
 }
 
+
+/*
+QUESTIONS HERE
+
+use -> or . ?
+use isRed() or color?
+
+*/
+
+#define PARENT insertedNode->getParent()
+#define GRANDPARENT PARENT->getParent()
+
 template <class key_t, class val_t>
 void RBTMultimap<key_t, val_t>::insertFixup(RBTNode<key_t, val_t>* insertedNode){
-	
+		
+	while(PARENT->isRed()){
+		
+		//find the uncle
+		if(PARENT == GRANDPARENT->getLeftChild()){
+			RBTNode<key_t, val_t>* uncle = GRANDPARENT->getRightChild();
+
+			if(uncle->isRed()){
+				PARENT->setIsRed(false);
+				uncle->setIsRed(false);
+				GRANDPARENT->setIsRed(true);
+				insertedNode = GRANDPARENT;
+			}
+			else{
+				if(insertedNode == PARENT->getRightChild()){
+					insertedNode = PARENT;
+					rotateLeft(insertedNode);
+				}
+
+				PARENT->setIsRed(false);
+				GRANDPARENT->setIsRed(true);
+				rotateRight(GRANDPARENT);
+			}
+		}
+		else{
+			RBTNode<key_t, val_t>* uncle = GRANDPARENT->getLeftChild();
+
+			if(uncle->isRed()){
+				PARENT->setIsRed(false);
+				uncle->setIsRed(false);
+				GRANDPARENT->setIsRed(true);
+				insertedNode = GRANDPARENT;
+			}
+			else{
+				if(insertedNode == PARENT->getLeftChild()){
+					insertedNode = PARENT;
+					rotateRight(insertedNode);
+				}
+
+				PARENT->setIsRed(false);
+				GRANDPARENT->setIsRed(true);
+				rotateLeft(GRANDPARENT);
+			}
+
+		}
+	}
+
+	RBTNode<key_t, val_t>* tmp  = dynamic_cast<RBTNode<key_t, val_t>*>(this->root);
+	tmp->setIsRed(false);
+
 }
 
 // Cormen p. 313
