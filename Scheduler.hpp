@@ -5,6 +5,9 @@
 #include "List.hpp"
 #include "ArrayList.hpp"
 #include "LinkedList.hpp"
+#include "BSTMultimap.hpp"
+#include "RBTMultimap.hpp"
+
 
 class Scheduler
 {
@@ -46,8 +49,6 @@ public:
   FastRoundRobin();
 };
 
-/*
-#include "BSTMultimap.hpp"
 class CompletelyFair : public Scheduler
 {
     protected:
@@ -59,6 +60,13 @@ class CompletelyFair : public Scheduler
         virtual void addProcess(Process* proc);
         virtual Process* popNext(int curCycle);
 };
-*/
+
+class FastCompletelyFair : public CompletelyFair
+{
+
+public:
+  FastCompletelyFair();
+  
+};
 
 #endif

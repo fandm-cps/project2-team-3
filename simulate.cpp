@@ -70,7 +70,7 @@ double* simulate(Scheduler* sched, int numCPUBound, int numIOBound, int numCycle
     {
       Process* currentCPU = cpuBound->getItem(i);
       totalCPU = totalCPU + currentCPU->getCPUTime();
-      totalCPUWait = totalCPUWait + currentCPU->getWaitTime(i);
+      totalCPUWait = totalCPUWait + currentCPU->getWaitTime(simCycles);
     }
   avgCPU = totalCPU / cpuSize;
   avgCPUWait = totalCPUWait / cpuSize;
@@ -89,9 +89,9 @@ double* simulate(Scheduler* sched, int numCPUBound, int numIOBound, int numCycle
     {
       Process* currentIO = ioBound->getItem(i);
       totalIO = totalIO + currentIO->getCPUTime();
-      totalIOWait = totalIOWait + currentIO->getWaitTime(i);
+      totalIOWait = totalIOWait + currentIO->getWaitTime(simCycles);
     }
-  avgIO = totalCPU / cpuSize;
+  avgIO = totalIO / ioSize;
   avgIOWait = totalIOWait / ioSize;
   //return to the second spot in the array
   retArr[3] = avgIO;

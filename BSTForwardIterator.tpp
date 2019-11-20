@@ -37,10 +37,13 @@ if (this->current == this->sentinel)
 return false;
 }
 
+#include <iostream>
+using namespace std;
+
 template <class key_t, class val_t>
 const key_t& BSTForwardIterator<key_t, val_t>::getKey() const{
 
-return (this->current)->getKey();
+return (current)->getKey();
 }
 
 template <class key_t, class val_t>

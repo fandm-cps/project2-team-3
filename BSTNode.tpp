@@ -28,7 +28,7 @@ void BSTNode<key_t, val_t>::setKey(const key_t& key){
 }
 
 template <class key_t, class val_t>
-BSTNode<key_t, val_t>* BSTNode<key_t, val_t>::getLeftChild(){
+BSTNode<key_t, val_t>* BSTNode<key_t, val_t>::getLeftChild() const{
     return leftChild;
 }
 
@@ -38,7 +38,7 @@ void BSTNode<key_t, val_t>::setLeftChild(BSTNode* child){
 }
 
 template <class key_t, class val_t>
-BSTNode<key_t, val_t>* BSTNode<key_t, val_t>::getRightChild(){
+BSTNode<key_t, val_t>* BSTNode<key_t, val_t>::getRightChild() const{
     return rightChild;
 }
 
@@ -48,7 +48,7 @@ void BSTNode<key_t, val_t>::setRightChild(BSTNode* child){
 }
 
 template <class key_t, class val_t>
-BSTNode<key_t, val_t>* BSTNode<key_t, val_t>::getParent(){
+BSTNode<key_t, val_t>* BSTNode<key_t, val_t>::getParent() const{
     return parent;
 }
 

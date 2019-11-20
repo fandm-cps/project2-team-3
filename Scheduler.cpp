@@ -1,6 +1,6 @@
 #include "Scheduler.hpp"
-#include <iostream>
-#include <cstdlib>
+//#include <iostream>
+//#include <cstdlib>
 
 using namespace std;
 
@@ -24,17 +24,16 @@ void RoundRobin::addProcess(Process* proc){
 //queue) or 0 if all processes are blocked.
 Process* RoundRobin::popNext(int curCycle){
 
-    //cout<<"a"<<endl;
     for(int i = 0; i < procQueue->getSize(); i++){
-        //cout<<i<<endl;
         if(procQueue->getFront()->isBlocked(curCycle)){
-            //cout<<"b"<<endl;
-            procQueue->pushBack(procQueue->getItem(i));
+            procQueue->pushBack(procQueue->getItem(0));
             procQueue->popFront();
         }
         else{
-            //cout<<"c"<<endl;
-            return procQueue->getItem(i);
+            Process* result = procQueue->getItem(0);
+            procQueue->popFront();
+            
+            return result;
         }
     }
 
@@ -48,11 +47,9 @@ FastRoundRobin::FastRoundRobin()
   //procQueue->~RoundRobin();
   delete procQueue;
   //point procQueue to an empty LinkedList
-  procQueue = new LinkedList<Process*>;
+  procQueue = new LinkedList<Process*>();
 }
 
-
-/*
 CompletelyFair::CompletelyFair(){
     procTree = new BSTMultimap<int, Process*>();
 }
@@ -65,7 +62,29 @@ void CompletelyFair::addProcess(Process* proc){
     procTree->insert(proc->getCPUTime(), proc);
 }
 
-Process* CompletelyFair::popNext(int curCycle){
-    
-}
+/*First obtain an iterator pointing to the process
+with the minimum CPU time. Then use the iterator to 
+traverse the tree until you find a process
+that is not blocked. Remove and return that process.
 */
+
+Process* CompletelyFair::popNext(int curCycle){
+    BSTForwardIterator<int, Process*> i = procTree->getMin();
+    BSTForwardIterator<int, Process*> j = i;
+
+    while(!i.isPastEnd() && i.getValue()->isBlocked(curCycle)){
+        i.next();
+        if(!i.getValue()->isBlocked(curCycle)){
+            break;
+        }
+    }
+
+    procTree->remove(i);
+
+    return i.getValue();
+}
+
+FastCompletelyFair::FastCompletelyFair(){
+  delete procTree;
+  procTree = new RBTMultimap<int, Process*>();
+}

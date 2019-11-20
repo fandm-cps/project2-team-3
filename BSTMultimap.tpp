@@ -1,3 +1,6 @@
+#include <iostream>
+using namespace std;
+
 template <class key_t, class val_t>
 BSTMultimap<key_t, val_t>::BSTMultimap(){
     sentinel = 0;
@@ -12,7 +15,9 @@ BSTMultimap<key_t, val_t>::~BSTMultimap(){
 
 template <class key_t, class val_t>
 void BSTMultimap<key_t, val_t>::clear(){
-    if(root != 0){
+
+    if(root != sentinel){
+        
         queue<BSTNode<key_t, val_t>*> q;
         q.push(root);
         BSTNode<key_t, val_t>* cur; 
@@ -20,10 +25,10 @@ void BSTMultimap<key_t, val_t>::clear(){
         while(!q.empty()){
             cur = q.front();
             q.pop();
-            if(cur->getLeftChild() != 0){
+            if(cur->getLeftChild() != sentinel){
                 q.push(cur->getLeftChild());
             }
-            if(cur->getRightChild() != 0){
+            if(cur->getRightChild() != sentinel){
                 q.push(cur->getRightChild());
             }
             delete cur;
@@ -31,12 +36,14 @@ void BSTMultimap<key_t, val_t>::clear(){
 
         root = sentinel;
         numItems = 0;
+        
     }
+    
 }
 
 template <class key_t, class val_t>
 bool BSTMultimap<key_t, val_t>::contains(const key_t& key) const{
-    if(root == 0){
+    if(root == sentinel){
         return false;
     }
     
@@ -47,10 +54,10 @@ bool BSTMultimap<key_t, val_t>::contains(const key_t& key) const{
     while(!q.empty()){
         cur = q.front();
         q.pop();
-        if(cur->getLeftChild() != 0){
+        if(cur->getLeftChild() != sentinel){
             q.push(cur->getLeftChild());
         }
-        if(cur->getRightChild() != 0){
+        if(cur->getRightChild() != sentinel){
             q.push(cur->getRightChild());
         }
         if(cur->getKey() == key){
@@ -61,19 +68,21 @@ bool BSTMultimap<key_t, val_t>::contains(const key_t& key) const{
 }
 
 template <class key_t, class val_t>
-void BSTMultimap<key_t, val_t>::insert(const key_t& key, const val_t& val){
-    BSTNode<key_t, val_t>* node = new BSTNode<key_t, val_t>(key, val);
-    
+void BSTMultimap<key_t, val_t>::insertNode(BSTNode<key_t, val_t>* newNode){
+       
+    newNode->setRightChild(sentinel);
+    newNode->setLeftChild(sentinel);
+
     BSTNode<key_t, val_t>* cur;
     BSTNode<key_t, val_t>* par;
 
     par = sentinel;
     cur = root;
 
-    while(cur != 0){
+    while(cur != sentinel){
         par = cur;
 
-        if(key < cur->getKey()){
+        if(newNode->getKey() < cur->getKey()){
             cur = cur->getLeftChild();
         }
         else{
@@ -81,19 +90,26 @@ void BSTMultimap<key_t, val_t>::insert(const key_t& key, const val_t& val){
         }
     }
 
-    node->setParent(par);
+    newNode->setParent(par);
     
-    if(par == 0){
-        root = node;
+    if(par == sentinel){
+        root = newNode;
     }
-    else if(key < par->getKey()){
-        par->setLeftChild(node);
+    else if(newNode->getKey() < par->getKey()){
+        par->setLeftChild(newNode);
     }
     else{
-        par->setRightChild(node);
+        par->setRightChild(newNode);
     }
     
     numItems++;
+}
+
+template <class key_t, class val_t>
+void BSTMultimap<key_t, val_t>::insert(const key_t& key, const val_t& val){
+    BSTNode<key_t, val_t>* node = new BSTNode<key_t, val_t>(key, val);
+
+    insertNode(node);
 }
 
 template <class key_t, class val_t>
@@ -116,11 +132,11 @@ string BSTMultimap<key_t, val_t>::toString(){
     while(!q.empty()){
         cur = q.front();
         q.pop();
-        outStr += "(" + to_string(cur->getKey()) + ", " + to_string(cur->getValue()) + ")-";
-        if(cur->getLeftChild() != 0){
+        outStr += "(" + to_string(cur->getKey()) + ")-";
+        if(cur->getLeftChild() != sentinel){
             q.push(cur->getLeftChild());
         }
-        if(cur->getRightChild() != 0){
+        if(cur->getRightChild() != sentinel){
             q.push(cur->getRightChild());
         }
     }
@@ -131,159 +147,137 @@ string BSTMultimap<key_t, val_t>::toString(){
 template <class key_t, class val_t>
 BSTForwardIterator<key_t, val_t> BSTMultimap<key_t, val_t>::getMin() const{
 
-BSTNode<key_t, val_t>* runner = this->root;
+    BSTNode<key_t, val_t>* runner = this->root;
 
-if (runner == this->sentinel){
+    if (runner == this->sentinel){
+        return BSTForwardIterator<key_t, val_t>(sentinel, sentinel);
+    }
 
-   return BSTForwardIterator<key_t, val_t>(sentinel, sentinel);
-   }
-
-while (runner->getLeftChild() != sentinel){
-
-   runner = runner->getLeftChild();
-}
-return BSTForwardIterator<key_t, val_t>(runner, 0);
+    while (runner->getLeftChild() != sentinel){
+        runner = runner->getLeftChild();
+    }
+    return BSTForwardIterator<key_t, val_t>(runner, sentinel);
 }
 
 template <class key_t, class val_t>
 BSTForwardIterator<key_t, val_t> BSTMultimap<key_t, val_t>::getMax() const{
 
-BSTNode<key_t, val_t>* runner = this->root;
+    BSTNode<key_t, val_t>* runner = this->root;
 
-if (runner == sentinel){
-   return  BSTForwardIterator<key_t, val_t>(sentinel, sentinel);
+    if (runner == sentinel){
+        return  BSTForwardIterator<key_t, val_t>(sentinel, sentinel);
+    }
+
+    while (runner->getRightChild() != sentinel){
+        runner = runner->getRightChild();
+    }
+    return  BSTForwardIterator<key_t, val_t>(runner, sentinel);   
 }
 
-while (runner->getRightChild() != sentinel){
-   runner = runner->getRightChild();
-}
-return  BSTForwardIterator<key_t, val_t>(runner, 0);   
-}
-
-/*
 template <class key_t, class val_t>
 BSTForwardIterator<key_t, val_t> BSTMultimap<key_t, val_t>::findFirst(const key_t& key) const{
-    BSTNode<key_t, val_t>* runner;
-    runner = this->root;
 
-    BSTNode<key_t, val_t>* par;
-    par = this->sentinel;
-    
-    while(runner != this->sentinel && runner->getKey() != key){
-        par = runner;
-        if(key < runner->getKey()){
+    if(!contains(key)){
+        return BSTForwardIterator<key_t, val_t>(sentinel, sentinel);
+    }
+
+    BSTNode<key_t, val_t>* runner = this->root;
+
+    while(runner != this->sentinel){ 
+
+        if (runner->getKey() == key){
+            return BSTForwardIterator<key_t, val_t>(runner, sentinel);
+        }
+        else if(key < runner->getKey()){
             runner = runner->getLeftChild();
         }
         else{
             runner = runner->getRightChild();
         }
     }
-        
-    if (par->getKey() != key){
-        return BSTForwardIterator<key_t, val_t>(sentinel, 0);
-    }
-        
-    return BSTForwardIterator<key_t, val_t>(par, 0);
 }
 
 template <class key_t, class val_t>
 BSTForwardIterator<key_t, val_t> BSTMultimap<key_t, val_t>::findLast(const key_t& key) const{
+
+    if (this->numItems == 0){
+        return BSTForwardIterator<key_t, val_t>(sentinel, sentinel);
+    }
+    else if(!contains(key)){
+        return BSTForwardIterator<key_t, val_t>(sentinel, sentinel);
+    }
+
     BSTNode<key_t, val_t>* runner = this->root;
     BSTNode<key_t, val_t>* last = this->sentinel;
+
     while (runner != this->sentinel){
-      //par = runner;
-      if (key < runner->getKey()){
-      	 runner = runner->getLeftChild();
-      }
-      else{
-	runner = runner->getRightChild();
-      }
-      if (runner->getKey() == key){
-      
-      	 last = runner;
-      }
+
+        if (runner->getKey() == key){
+            last = runner;
+        }
+        if (key < runner->getKey()){
+            runner = runner->getLeftChild();
+        }
+        else{
+            runner = runner->getRightChild();
+        }    
+    }
+
+    return BSTForwardIterator<key_t, val_t>(last, sentinel);
 }
-if (last->getKey() != key){
-   return BSTForwardIterator<key_t, val_t>(sentinel, 0);
-}
-return BSTForwardIterator<key_t, val_t>(last, 0);
-}
-*/
 
 template <class key_t, class val_t>
 void BSTMultimap<key_t, val_t>::transplant(BSTNode<key_t, val_t>* u, BSTNode<key_t, val_t>* v){
 
-if (u->getParent() == sentinel){
-
-   (this->root)->setKey(v->getKey());
-   (this->root)->setValue(v->getValue());
+    BSTNode<key_t, val_t>* uPar = u->getParent();
+    
+    if (u->getParent() == sentinel){
+        this->root = v; 
+    }
+    else if (u == uPar->getLeftChild()){
+        uPar->setLeftChild(v);
+    }
+    else{
+	    uPar->setRightChild(v);
+    }
+  
+    if (v != this->sentinel){
+        v->setParent(uPar);
+    }
 }
-else if (u == (u->getParent())->getLeftChild()){
-
-     BSTNode<key_t, val_t>* parLeft = (u->getParent())->getLeftChild();
-     parLeft->setKey(v->getKey());
-     parLeft->setValue(v->getValue());
-}
-else{
-
-	BSTNode<key_t, val_t>* parRight = (u->getParent())->getRightChild();
-	parRight->setKey(v->getKey());
-	parRight->setValue(v->getValue());
-	}
-
-if (v != this->sentinel){
-   BSTNode<key_t, val_t>* vP = v->getParent();
-   BSTNode<key_t, val_t>* uP = u->getParent();
-   vP->setKey(uP->getKey());
-   vP->setValue(uP->getValue());
-}
-
-}
-
-
 
 template <class key_t, class val_t>
-BSTForwardIterator<key_t, val_t> BSTMultimap<key_t, val_t>::remove(
-const BSTForwardIterator<key_t, val_t>& pos){
+BSTForwardIterator<key_t, val_t> BSTMultimap<key_t, val_t>::remove(const BSTForwardIterator<key_t, val_t>& pos){
 
-BSTNode<key_t, val_t>* runner = pos.current;
-BSTForwardIterator<key_t, val_t> succ = pos;
-succ.next();
+    BSTNode<key_t, val_t>* runner = pos.current;
+    BSTForwardIterator<key_t, val_t> succ = pos;
 
-if (runner->getLeftChild() == sentinel){
+    if (runner->getLeftChild() == sentinel){
+        this->transplant(runner, runner->getRightChild());
+    }
+    else if(runner->getRightChild() == sentinel){
 
-   this->transplant(runner, runner->getRightChild());
-}
-else if(runner->getRightChild() == sentinel){
+        this->transplant(runner, runner->getLeftChild());
+    }
+    else{
+        BSTNode<key_t, val_t>* tmpNode = runner->getRightChild();
+        while (tmpNode->getLeftChild() != sentinel){
+            tmpNode = tmpNode->getLeftChild();
+        }
 
-    this->transplant(runner, runner->getLeftChild());
-}
-else{
-	BSTNode<key_t, val_t>* tmpNode = runner->getRightChild();
-	while (tmpNode->getLeftChild() != sentinel){
+        if (tmpNode->getParent() != runner){
+            this->transplant(tmpNode, tmpNode->getRightChild());
+            tmpNode->setRightChild(runner->getRightChild());
+            tmpNode->getRightChild()->setParent(tmpNode);
+        }
 
-	tmpNode = tmpNode->getLeftChild();
-	}
-	if (tmpNode->getParent() != runner){
-	   this->transplant(tmpNode, tmpNode->getRightChild());
-	   BSTNode<key_t, val_t>* tmpRight = tmpNode->getRightChild();
-	   BSTNode<key_t, val_t>* tmpRightPar = (tmpNode->getRightChild())->getParent();
-	   tmpRight->setKey((runner->getRightChild())->getKey());
-	   tmpRight->setValue((runner->getRightChild())->getValue());
-
-	   tmpRightPar->setKey(tmpNode->getKey());
-	   tmpRightPar->setValue(tmpNode->getValue());
-	   this->transplant(runner, tmpNode);
-
-	   BSTNode<key_t, val_t>* tmpLeft = tmpNode->getLeftChild();
-	   BSTNode<key_t, val_t>* tmpLeftPar = (tmpNode->getLeftChild())->getParent();
-	   tmpLeft->setKey((runner->getLeftChild())->getKey());
-	   tmpLeft->setValue((runner->getLeftChild())->getValue());
-
-	   tmpLeftPar->setKey(runner->getKey());
-	   tmpLeftPar->setValue(runner->getValue());
-	}
-}
-numItems--;
-return succ;
+        this->transplant(runner, tmpNode);
+        tmpNode->setLeftChild(runner->getLeftChild());
+        tmpNode->getLeftChild()->setParent(tmpNode);
+    }
+    if(numItems > 0){
+        numItems--;
+    }
+    succ.next();
+    return succ;
 }
